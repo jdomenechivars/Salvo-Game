@@ -1,0 +1,20 @@
+.sea{
+  border: 1px solid black;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.row{
+//  border: 1px solid black;
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  align-content: flex-end;
+
+}
+
+.cell{
+  border: 1px solid red;
+  width: 80px;
+  height: 80px;
+}

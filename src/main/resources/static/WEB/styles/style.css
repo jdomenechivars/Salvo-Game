@@ -1,2 +1,20 @@
+/* line 1, src/main/resources/static/web/styles/style.scss */
+.sea {
+  border: 1px solid black;
+  display: flex;
+  flex-flow: column nowrap; }
+
+/* line 7, src/main/resources/static/web/styles/style.scss */
+.row {
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+  align-content: flex-end; }
+
+/* line 16, src/main/resources/static/web/styles/style.scss */
+.cell {
+  border: 1px solid red;
+  width: 80px;
+  height: 80px; }
 
 /*# sourceMappingURL=style.css.map */
