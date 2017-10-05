@@ -96,11 +96,11 @@ public class SalvoApplication {
 
 			Ship ship2 = new Ship("Battle Ship", loc2);
 
-			List<String> loc3 = Arrays.asList("E5", "E6", "E7");
+			List<String> loc3 = Arrays.asList("E5", "F5", "G5");
 
 			Ship ship3 = new Ship("Submarine",loc3);
 
-			List<String> loc4 = Arrays.asList("F1", "F2", "F3");
+			List<String> loc4 = Arrays.asList("F1", "G1", "H1");
 
 			Ship ship4 = new Ship("Destroyer",loc4);
 
@@ -149,19 +149,19 @@ public class SalvoApplication {
 
 			Ship ship7 = new Ship("Patrol Boat", loc7);
 
-			GP1.addShip(ship6);
+			GP2.addShip(ship6);
 			shipRepo.save(ship6);
 
-			GP1.addShip(ship8);
+			GP2.addShip(ship8);
 			shipRepo.save(ship8);
 
-			GP1.addShip(ship9);
+			GP2.addShip(ship9);
 			shipRepo.save(ship9);
 
-			GP1.addShip(ship10);
+			GP2.addShip(ship10);
 			shipRepo.save(ship10);
 
-			GP1.addShip(ship7);
+			GP2.addShip(ship7);
 			shipRepo.save(ship7);
 
 		};

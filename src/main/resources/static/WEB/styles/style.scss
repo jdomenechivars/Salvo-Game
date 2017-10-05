@@ -1,20 +1,43 @@
-.sea{
-  border: 1px solid black;
-  display: flex;
-  flex-flow: column nowrap;
+body {
+  background-color: lightsteelblue;
+  perspective: 300px;
 }
 
-.row{
-//  border: 1px solid black;
+.sea {
+
+  width: fit-content;
+  background-color: lightblue;
+  //  background-image: url(images/water.jpg);
+  //  background-size: cover;
+  border: 35px solid gainsboro;
+  margin: 50px auto;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
+}
+
+.row {
+  //  border: 1px solid black;
   display: flex;
   flex-flow: row nowrap;
-  width: 100%;
   align-content: flex-end;
 
 }
 
-.cell{
-  border: 1px solid red;
-  width: 80px;
-  height: 80px;
+.cell {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: steelblue;
+  font-weight: bold;
+  font-family: monospace;
+  border: 1px dashed steelblue;
+  width: 40px;
+  height: 40px;
+}
+
+.ship{
+  background-image: url(icons/paper-ship.png);
+  background-size: cover;
 }
