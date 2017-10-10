@@ -1,21 +1,23 @@
 body {
-  background-color: lightsteelblue;
+  background-color: #102020;
   perspective: 300px;
 }
 
 .sea {
 
   width: fit-content;
-  background-color: lightblue;
-  //  background-image: url(images/water.jpg);
-  //  background-size: cover;
-  border: 35px solid gainsboro;
+  background-color: transparent;
+  border: 1px solid #00ffff;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 1), 0 0 40px #00ffff, 0 0 70px #00ffff, 0 0 80px #00ffff, 0 0 100px #00ffff;
   margin: 50px auto;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center;
+
 }
+
 
 .row {
   //  border: 1px solid black;
@@ -29,15 +31,20 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  color: steelblue;
+  color: #00ffff;
   font-weight: bold;
   font-family: monospace;
-  border: 1px dashed steelblue;
+  border: 1px dashed #00ffff;
   width: 40px;
   height: 40px;
+  box-shadow: 0 0 10px #00ffff;
+  text-shadow: 0 0 10px #00ffff;
+
 }
 
-.ship{
+.ship {
   background-image: url(icons/paper-ship.png);
-  background-size: cover;
+  background-size: 25px;
+  background-repeat: no-repeat;
+  background-position: center;
 }

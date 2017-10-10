@@ -6,10 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.SocketPermission;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RestController
@@ -18,6 +15,9 @@ public class SalvoControler {
 
     @Autowired
     private GameRepository gameRepo;
+
+    @Autowired
+    private GamePlayerRepository gamePlRepo;
 
     @RequestMapping("/games")
     public List<Object> returnGames() {
@@ -59,9 +59,6 @@ public class SalvoControler {
         return TP;
     }
 
-    @Autowired
-    private GamePlayerRepository gamePlRepo;
-
     @RequestMapping("/game_view/{nn}")
     public Map<String, Object> returnSelectGame(@PathVariable long nn) {
         Map<String, Object> retSG = new LinkedHashMap<String, Object>();
@@ -77,6 +74,10 @@ public class SalvoControler {
                 .stream()
                 .map(ships -> toBoat(ships))
                 .collect(Collectors.toList()));
+        retSG.put("salvoes", currentGamePlayer.getGame().getGamePlayers()
+                .stream()
+                .map(gamePlayer -> toSalvo(gamePlayer))
+                .collect(Collectors.toList()));
         return retSG;
     }
 
@@ -87,4 +88,24 @@ public class SalvoControler {
         boat.put("locations",ships.getLocations());
         return boat;
     }
+
+    public List<Map<String, Object>> toSalvo(GamePlayer gamePlayer){
+
+        List<Map<String,Object>> salvoMap = new ArrayList<>();
+
+        Set<Salvo> salvos = gamePlayer.getSalvos();
+
+        for (Salvo salvo : salvos) {
+
+            Map<String, Object> eachSalvo = new LinkedHashMap<>();
+            eachSalvo.put("turn", salvo.getTurn());
+            eachSalvo.put("player", salvo.getGamePlayer().getPlayer().getId());
+            eachSalvo.put("salvoLocations", salvo.getSalvoLocations());
+
+            salvoMap.add(eachSalvo);
+        }
+
+        return salvoMap;
+    }
+
 }
