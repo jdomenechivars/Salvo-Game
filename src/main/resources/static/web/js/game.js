@@ -1,3 +1,8 @@
+/*eslint-env browser*/
+/*eslint "no-console": "off"*/
+/*global $ */
+
+
 $(document).ready(function () {
 
 	var sea = $(".sea");
@@ -5,7 +10,7 @@ $(document).ready(function () {
 
 	createGrid(sea);
 	createGrid(salvoSea);
-
+	
 	$.get("/api/game_view/" + getParameterByName("gp"), function (data) {
 
 		getPlayers(data);
@@ -180,7 +185,7 @@ function printShips(shipType, shipLocation) {
 
 function getSalvoes(data) {
 
-	//	console.log(data);	
+//	console.log(data);
 
 	var salvoes = data.salvoes;
 
@@ -189,11 +194,15 @@ function getSalvoes(data) {
 	var salvoesP1 = null;
 	var salvoesP2 = null;
 
+
 	for (var k = 0; k < salvoes.length; k++) {
 
-		if (data.gamePlayers[k].gpId == gpId) {
+		//chequeo si salvo [k] tiene size o no.
+
+		if (salvoes[k][0].gpId == gpId) {
 
 			salvoesP1 = salvoes[k];
+
 
 		} else {
 
@@ -247,7 +256,7 @@ function printEnemySavloes(salvoes) {
 			if (bombLocation.classList == "cell") {
 
 				bombLocation.classList.add("aqua");
-			}else if(bombLocation.classList == "cell ship") {
+			} else if (bombLocation.classList == "cell ship") {
 
 				bombLocation.classList.remove("ship");
 				bombLocation.classList.add("bomb");

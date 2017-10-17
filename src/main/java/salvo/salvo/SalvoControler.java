@@ -100,6 +100,7 @@ public class SalvoControler {
     private Map<String, Object> salvoToJson(Salvo salvo) {
         Map<String, Object> eachSalvo = new LinkedHashMap<>();
         eachSalvo.put("turn", salvo.getTurn());
+        eachSalvo.put("gpId", salvo.getGamePlayer().getId());
         eachSalvo.put("playerId", salvo.getGamePlayer().getPlayer().getId());
         eachSalvo.put("salvoLocations", salvo.getSalvoLocations());
 

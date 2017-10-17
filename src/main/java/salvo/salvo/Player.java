@@ -1,6 +1,7 @@
 package salvo.salvo;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -13,7 +14,10 @@ public class Player {
     private String userName;
 
     @OneToMany(mappedBy ="player", fetch = FetchType.EAGER)
-    Set<GamePlayer> gamePlayers;
+    Set<GamePlayer> gamePlayers = new HashSet<>();
+
+    @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
+    Set<Score> players = new HashSet<>();
 
     public Player() {}
 
@@ -37,7 +41,22 @@ public class Player {
         this.userName = userName;
     }
 
-    // El Get y el Set, como las variables son privadas, són métodos que te permiten
+    public Set<GamePlayer> getGamePlayers() {
+        return gamePlayers;
+    }
+
+    public void setGamePlayers(Set<GamePlayer> gamePlayers) {
+        this.gamePlayers = gamePlayers;
+    }
+
+    public Set<Score> getPlayers() {
+        return players;
+    }
+
+    public void setPlayers(Set<Score> players) {
+        this.players = players;
+    }
+// El Get y el Set, como las variables son privadas, són métodos que te permiten
     // acceder a la variable o cambiar la variable desde otras classes.
 
 
