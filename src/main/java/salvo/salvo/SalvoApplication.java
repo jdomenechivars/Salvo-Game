@@ -29,7 +29,7 @@ public class SalvoApplication {
 
 		return args -> {
 			// save a couple of customers
-            Player p1 = new Player ( "jdomenechivars@gmail.com");
+            Player p1 = new Player ( "Joan D.");
 			playRepo.save(p1);
 
 			Player p2 = new Player("Chloe O'Brian");
@@ -73,8 +73,8 @@ public class SalvoApplication {
             GamePlayer GP5 = new GamePlayer(p4, G2);
             GPRepo.save(GP5);
 
-            GamePlayer GP6 = new GamePlayer(p2, G2);
-            GPRepo.save(GP6);
+//            GamePlayer GP6 = new GamePlayer(p2, G2);
+//            GPRepo.save(GP6);
 
             //Save a couple of ships
 /*

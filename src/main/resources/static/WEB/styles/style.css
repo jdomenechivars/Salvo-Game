@@ -1,10 +1,115 @@
-/* line 1, src/main/resources/static/web/styles/style.scss */
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+/* line 6, src/main/resources/static/web/styles/partials/_normalize.scss */
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  /*	border: 0;*/
+  font-size: 100%;
+  /*	font: inherit;*/
+  vertical-align: baseline; }
+
+/* HTML5 display-role reset for older browsers */
+/* line 27, src/main/resources/static/web/styles/partials/_normalize.scss */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block; }
+
+/* line 31, src/main/resources/static/web/styles/partials/_normalize.scss */
+body {
+  line-height: 1; }
+
+/* line 34, src/main/resources/static/web/styles/partials/_normalize.scss */
+ol, ul {
+  list-style: none; }
+
+/* line 37, src/main/resources/static/web/styles/partials/_normalize.scss */
+blockquote, q {
+  quotes: none; }
+
+/* line 40, src/main/resources/static/web/styles/partials/_normalize.scss */
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: '';
+  content: none; }
+
+/* line 45, src/main/resources/static/web/styles/partials/_normalize.scss */
+table {
+  border-collapse: collapse;
+  border-spacing: 0; }
+
+/* line 4, src/main/resources/static/web/styles/style.scss */
 body {
   background-color: #102020;
-  perspective: 300px; }
+  perspective: 300px;
+  overflow: hidden; }
 
-/* line 6, src/main/resources/static/web/styles/style.scss */
-.sea {
+/* line 10, src/main/resources/static/web/styles/style.scss */
+header {
+  overflow: hidden;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  margin: -1px;
+  width: 100%;
+  border: 1px solid #00ffff;
+  height: 100px;
+  font-family: 'VT323', monospace;
+  font-size: 50px;
+  color: #00ffff; }
+  /* line 25, src/main/resources/static/web/styles/style.scss */
+  header .players {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center; }
+    /* line 31, src/main/resources/static/web/styles/style.scss */
+    header .players .p1, header .players .p2 {
+      font-size: 25px; }
+    /* line 35, src/main/resources/static/web/styles/style.scss */
+    header .players .vs {
+      font-size: 25px;
+      padding-left: 5px;
+      padding-right: 5px; }
+
+/* line 52, src/main/resources/static/web/styles/style.scss */
+.board {
+  margin-top: 100px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around; }
+  /* line 57, src/main/resources/static/web/styles/style.scss */
+  .board .field {
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center; }
+    /* line 63, src/main/resources/static/web/styles/style.scss */
+    .board .field .fieldTitle {
+      font-family: 'VT323', monospace;
+      font-size: 20px;
+      color: #00ffff; }
+
+/* line 72, src/main/resources/static/web/styles/style.scss */
+.sea,
+.salvoSea {
   width: fit-content;
   background-color: transparent;
   border: 1px solid #00ffff;
@@ -16,13 +121,13 @@ body {
   justify-content: center;
   align-items: center; }
 
-/* line 22, src/main/resources/static/web/styles/style.scss */
+/* line 89, src/main/resources/static/web/styles/style.scss */
 .row {
   display: flex;
   flex-flow: row nowrap;
   align-content: flex-end; }
 
-/* line 30, src/main/resources/static/web/styles/style.scss */
+/* line 97, src/main/resources/static/web/styles/style.scss */
 .cell {
   display: flex;
   justify-content: center;
@@ -31,16 +136,27 @@ body {
   font-weight: bold;
   font-family: monospace;
   border: 1px dashed #00ffff;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   box-shadow: 0 0 10px #00ffff;
   text-shadow: 0 0 10px #00ffff; }
 
-/* line 45, src/main/resources/static/web/styles/style.scss */
+/* line 112, src/main/resources/static/web/styles/style.scss */
 .ship {
   background-image: url(icons/paper-ship.png);
   background-size: 25px;
   background-repeat: no-repeat;
   background-position: center; }
+
+/* line 119, src/main/resources/static/web/styles/style.scss */
+.bomb {
+  background-image: url(icons/redship.png);
+  background-size: 25px;
+  background-repeat: no-repeat;
+  background-position: center; }
+
+/* line 126, src/main/resources/static/web/styles/style.scss */
+.aqua {
+  background-color: #00ffff; }
 
 /*# sourceMappingURL=style.css.map */

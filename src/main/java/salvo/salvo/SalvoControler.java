@@ -31,8 +31,8 @@ public class SalvoControler {
 
     public Map<String, Object> toDTO(Game game) {
         Map<String, Object> dto = new LinkedHashMap<String, Object>();
-        dto.put("id", game.getId());
-        dto.put("date", game.getGameDate());
+        dto.put("gameId", game.getId());
+        dto.put("gameDate", game.getGameDate());
         dto.put("gamePlayers", game.getGamePlayers()
                 .stream()
                 .map(gamePlayer -> toGP(gamePlayer))
@@ -47,15 +47,15 @@ public class SalvoControler {
 
     public Map<String, Object> toGP(GamePlayer gamePlayers) {
         Map<String, Object> GP = new LinkedHashMap<String, Object>();
-        GP.put("id", gamePlayers.getId());
-        GP.put("player", toPlayer(gamePlayers));
+        GP.put("gpId", gamePlayers.getId());
+        GP.put("player", toPlayer(gamePlayers.getPlayer()));
         return GP;
     }
 
-    public Map<String, Object> toPlayer(GamePlayer gamePlayer){
+    public Map<String, Object> toPlayer(Player player){
         Map<String, Object> TP = new LinkedHashMap<String, Object>();
-        TP.put("id", gamePlayer.getPlayer().getId());
-        TP.put("email", gamePlayer.getPlayer().getUserName());
+        TP.put("playerId", player.getId());
+        TP.put("email", player.getUserName());
         return TP;
     }
 
@@ -64,7 +64,7 @@ public class SalvoControler {
         Map<String, Object> retSG = new LinkedHashMap<String, Object>();
 
         GamePlayer currentGamePlayer = gamePlRepo.findOne(nn);
-        retSG.put("id", currentGamePlayer.getId());
+        retSG.put("gpId", currentGamePlayer.getId());
         retSG.put("created", currentGamePlayer.getGamePlayerDate());
         retSG.put("gamePlayers",currentGamePlayer.getGame().getGamePlayers()
                 .stream()
@@ -91,21 +91,19 @@ public class SalvoControler {
 
     public List<Map<String, Object>> toSalvo(GamePlayer gamePlayer){
 
-        List<Map<String,Object>> salvoMap = new ArrayList<>();
+        return gamePlayer.getSalvos()
+                            .stream()
+                            .map(salvo -> salvoToJson(salvo))
+                            .collect(Collectors.toList());
+    }
 
-        Set<Salvo> salvos = gamePlayer.getSalvos();
+    private Map<String, Object> salvoToJson(Salvo salvo) {
+        Map<String, Object> eachSalvo = new LinkedHashMap<>();
+        eachSalvo.put("turn", salvo.getTurn());
+        eachSalvo.put("playerId", salvo.getGamePlayer().getPlayer().getId());
+        eachSalvo.put("salvoLocations", salvo.getSalvoLocations());
 
-        for (Salvo salvo : salvos) {
-
-            Map<String, Object> eachSalvo = new LinkedHashMap<>();
-            eachSalvo.put("turn", salvo.getTurn());
-            eachSalvo.put("player", salvo.getGamePlayer().getPlayer().getId());
-            eachSalvo.put("salvoLocations", salvo.getSalvoLocations());
-
-            salvoMap.add(eachSalvo);
-        }
-
-        return salvoMap;
+        return eachSalvo;
     }
 
 }

@@ -1,9 +1,76 @@
+@import 'partials/normalize';
+
+
 body {
   background-color: #102020;
   perspective: 300px;
+  overflow: hidden;
 }
 
-.sea {
+header{
+  overflow: hidden;
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  margin:-1px;
+  width: 100%;
+  border: 1px solid #00ffff;
+  height: 100px;
+  font-family: 'VT323', monospace;
+  font-size: 50px;
+  color: #00ffff;
+  
+  .players {
+    width: 100%;
+    display: flex;
+    flex-flow: row nowrap;
+    justify-content: center;
+    
+    .p1, .p2{
+      font-size: 25px;
+    }
+    
+    .vs{
+      font-size: 25px;
+      padding-left: 5px;
+    padding-right: 5px;}
+  
+//  box-shadow: 0 0 10px rgba(255, 255, 255, 1),
+//  0 0 20px rgba(255, 255, 255, 1),
+//  0 0 30px rgba(255, 255, 255, 1),
+//  0 0 40px #00ffff,
+//  0 0 70px #00ffff,
+//  0 0 80px #00ffff,
+//  0 0 100px #00ffff;
+}
+
+}
+
+
+.board {
+  margin-top: 100px;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-around;
+  .field{
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+    .fieldTitle{
+    font-family: 'VT323', monospace;
+    font-size: 20px;
+    color: #00ffff;
+    }
+
+  }
+}
+
+.sea,
+.salvoSea {
 
   width: fit-content;
   background-color: transparent;
@@ -35,8 +102,8 @@ body {
   font-weight: bold;
   font-family: monospace;
   border: 1px dashed #00ffff;
-  width: 40px;
-  height: 40px;
+  width: 35px;
+  height: 35px;
   box-shadow: 0 0 10px #00ffff;
   text-shadow: 0 0 10px #00ffff;
 
@@ -47,4 +114,15 @@ body {
   background-size: 25px;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.bomb {
+  background-image: url(icons/redship.png);
+  background-size: 25px;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.aqua{
+	background-color: #00ffff;
 }
