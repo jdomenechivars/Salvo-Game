@@ -17,7 +17,7 @@ public class Player {
     Set<GamePlayer> gamePlayers = new HashSet<>();
 
     @OneToMany(mappedBy = "player", fetch = FetchType.EAGER)
-    Set<Score> players = new HashSet<>();
+    Set<Score> scores = new HashSet<>();
 
     public Player() {}
 
@@ -49,13 +49,15 @@ public class Player {
         this.gamePlayers = gamePlayers;
     }
 
-    public Set<Score> getPlayers() {
-        return players;
+    public Set<Score> getScores() {
+        return scores;
     }
 
-    public void setPlayers(Set<Score> players) {
-        this.players = players;
+    public void setScores(Set<Score> scores) {
+        this.scores = scores;
     }
+
+
 // El Get y el Set, como las variables son privadas, són métodos que te permiten
     // acceder a la variable o cambiar la variable desde otras classes.
 

@@ -22,7 +22,8 @@ public class SalvoApplication {
 									  GameRepository gameRepo,
 									  GamePlayerRepository GPRepo,
 									  ShipRepository shipRepo,
-                                      SalvoRepository salvoRepo){
+                                      SalvoRepository salvoRepo,
+                                      ScoreRepository scoreRepo){
 
 		return args -> {
 			// save a couple of customers
@@ -190,6 +191,26 @@ public class SalvoApplication {
 
             GP2.addSalvo(salvo4);
             salvoRepo.save(salvo4);
+
+            //Add some scores
+
+            Score s1 = new Score(p1, G1,1);
+            scoreRepo.save(s1);
+
+            Score s2 = new Score(p2, G1, 0);
+            scoreRepo.save(s2);
+
+            Score s3 = new Score(p4, G2, 0);
+            scoreRepo.save(s3);
+
+            Score s4 = new Score(p1, G3, 1);
+            scoreRepo.save(s4);
+
+            Score s5 = new Score(p3, G3, 5);
+            scoreRepo.save(s5);
+
+
+
 
 
 		};

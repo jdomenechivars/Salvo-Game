@@ -19,7 +19,75 @@ public class SalvoControler {
     @Autowired
     private GamePlayerRepository gamePlRepo;
 
+    @Autowired
+    private ScoreRepository scoreRepo;
+
+    @Autowired
+    private PlayerRepository playerRepo;
+
     @RequestMapping("/games")
+    public Map<String, Object> gameInfo () {
+        Map<String, Object> info = new LinkedHashMap<String, Object>();
+        info.put("leaderBoard",returnScores());
+        info.put("gamesInfo", returnGames());
+        return info;
+    }
+
+    public List<Object> returnScores(){
+        return playerRepo
+                .findAll()
+                .stream()
+                .map(player -> leaderBoardInfo(player) )
+                .collect(Collectors.toList());
+    }
+
+    public Map<String, Object> leaderBoardInfo (Player player){
+        Map<String, Object> leadB = new LinkedHashMap<String, Object>();
+        leadB.put("playerName", player.getUserName());
+        leadB.put("scores", countScores(player));
+        return leadB;
+    }
+
+//    public List<Object> returnScores(Player player){
+//        return player.getScores()
+//                .stream()
+//                .map(score -> score.getScore())
+//                .collect(Collectors.toList());
+//    }
+
+    public Map<String,Object> countScores (Player player){
+
+
+        Map<String,Object> eachScore = new LinkedHashMap<String, Object>();
+
+        int win = 0;
+        int lost = 0;
+        int tied = 0;
+
+        for ( Score score : player.getScores() ) {
+
+            if (score.getScore()  == 1) {
+
+                win = win + 1;
+
+            } else if (score.getScore() == 0) {
+
+                lost = lost + 1;
+
+            } else {
+
+                tied = tied + 1;
+
+            }
+        }
+        eachScore.put("win", win);
+        eachScore.put("lost", lost);
+        eachScore.put("tied", tied);
+
+        return eachScore;
+    }
+
+
     public List<Object> returnGames() {
         return gameRepo
                 .findAll()
