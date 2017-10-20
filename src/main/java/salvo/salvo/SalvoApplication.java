@@ -5,6 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 
+import javax.naming.NamingEnumeration;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -39,6 +40,13 @@ public class SalvoApplication {
 			Player p4 = new Player("Tony Almeida");
 			playRepo.save(p4);
 
+			Player p5 = new Player("Oruj");
+			playRepo.save(p5);
+
+			Player p6 = new Player("Victor");
+			playRepo.save(p6);
+
+
 			// Save a couple of games
 
             Game G1 = new Game();
@@ -52,6 +60,9 @@ public class SalvoApplication {
 
 			Game G4 = new Game(7200);
 			gameRepo.save(G4);
+
+			Game G5 = new Game();
+			gameRepo.save(G5);
 
 			// Save a couple of gamePlayers
 
@@ -71,8 +82,21 @@ public class SalvoApplication {
             GamePlayer GP5 = new GamePlayer(p4, G2);
             GPRepo.save(GP5);
 
-//            GamePlayer GP6 = new GamePlayer(p2, G2);
-//            GPRepo.save(GP6);
+            GamePlayer GP6 = new GamePlayer(p5, G2);
+            GPRepo.save(GP6);
+
+            GamePlayer GP7 = new GamePlayer(p6, G4);
+            GPRepo.save(GP7);
+
+            GamePlayer GP8 = new GamePlayer(p5, G4);
+            GPRepo.save(GP8);
+
+            GamePlayer GP9 = new GamePlayer(p5, G5);
+            GPRepo.save(GP9);
+
+            GamePlayer GP10 = new GamePlayer(p6, G5);
+            GPRepo.save(GP10);
+
 
             //Save a couple of ships
 /*
@@ -209,9 +233,20 @@ public class SalvoApplication {
             Score s5 = new Score(p3, G3, 5);
             scoreRepo.save(s5);
 
+            Score s6 = new Score(p5, G2, 1);
+            scoreRepo.save(s6);
 
+            Score s7 = new Score(p5, G4, 1);
+            scoreRepo.save(s7);
 
+            Score s8 = new Score(p6, G4, 0);
+            scoreRepo.save(s8);
 
+            Score s9 = new Score(p5, G5, 1);
+            scoreRepo.save(s9);
+
+            Score s10 = new Score(p6, G5, 0);
+            scoreRepo.save(s10);
 
 		};
 

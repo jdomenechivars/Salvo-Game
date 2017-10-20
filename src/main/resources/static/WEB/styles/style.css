@@ -52,30 +52,62 @@ table {
   border-collapse: collapse;
   border-spacing: 0; }
 
-/* line 4, src/main/resources/static/web/styles/style.scss */
+/* line 101, src/main/resources/static/web/styles/style.scss */
 body {
-  background-color: #102020;
-  perspective: 300px;
-  overflow: hidden; }
+  background-color: #081a1a; }
 
-/* line 10, src/main/resources/static/web/styles/style.scss */
-.raw {
-  color: white;
-  font-size: 20px;
-  font-family: "Arial";
-  border: 1px solid white; }
-
-/* line 18, src/main/resources/static/web/styles/style.scss */
+/* line 106, src/main/resources/static/web/styles/style.scss */
 .wall {
-  border: 1px solid white; }
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  width: 100%; }
+  /* line 113, src/main/resources/static/web/styles/style.scss */
+  .wall .fameTitle {
+    margin-top: 20px;
+    color: #00ffff;
+    font-size: 50px;
+    font-family: "VT323", monospace; }
+  /* line 119, src/main/resources/static/web/styles/style.scss */
+  .wall .fame {
+    margin: 25px;
+    border: 1px dashed #00ffff;
+    width: 80%;
+    color: #00ffff;
+    font-size: 20px;
+    box-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px white, 0 0 40px #00ffff, 0 0 70px #00ffff, 0 0 80px #00ffff; }
+    /* line 126, src/main/resources/static/web/styles/style.scss */
+    .wall .fame th {
+      font-family: "VT323", monospace;
+      font-weight: 100;
+      text-align: center;
+      border: 1px dashed #00ffff;
+      box-shadow: 0 0 10px #00ffff; }
+    /* line 133, src/main/resources/static/web/styles/style.scss */
+    .wall .fame .tcell:first-of-type {
+      font-family: monospace;
+      font-size: 15px;
+      font-weight: bold;
+      text-align: left;
+      padding: 5px; }
+    /* line 140, src/main/resources/static/web/styles/style.scss */
+    .wall .fame .tcell {
+      font-family: monospace;
+      font-size: 15px;
+      text-align: center;
+      border: 1px dashed #00ffff;
+      box-shadow: 0 0 10px #00ffff; }
 
-/* line 24, src/main/resources/static/web/styles/style.scss */
+/* line 150, src/main/resources/static/web/styles/style.scss */
 li.list {
-  color: white;
+  margin-top: 50px;
+  color: #00ffff;
   font-size: 18px;
-  font-family: "Arial"; }
+  font-family: "VT323", monospace; }
 
-/* line 30, src/main/resources/static/web/styles/style.scss */
+/* line 158, src/main/resources/static/web/styles/style.scss */
 header {
   overflow: hidden;
   display: flex;
@@ -87,44 +119,45 @@ header {
   width: 100%;
   border: 1px solid #00ffff;
   height: 100px;
-  font-family: 'VT323', monospace;
+  font-family: "VT323", monospace;
   font-size: 50px;
   color: #00ffff; }
-  /* line 45, src/main/resources/static/web/styles/style.scss */
+  /* line 172, src/main/resources/static/web/styles/style.scss */
   header .players {
     width: 100%;
     display: flex;
     flex-flow: row nowrap;
     justify-content: center; }
-    /* line 51, src/main/resources/static/web/styles/style.scss */
-    header .players .p1, header .players .p2 {
+    /* line 177, src/main/resources/static/web/styles/style.scss */
+    header .players .p1,
+    header .players .p2 {
       font-size: 25px; }
-    /* line 55, src/main/resources/static/web/styles/style.scss */
+    /* line 181, src/main/resources/static/web/styles/style.scss */
     header .players .vs {
       font-size: 25px;
       padding-left: 5px;
       padding-right: 5px; }
 
-/* line 72, src/main/resources/static/web/styles/style.scss */
+/* line 190, src/main/resources/static/web/styles/style.scss */
 .board {
-  margin-top: 100px;
+  margin-top: 90px;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-around; }
-  /* line 77, src/main/resources/static/web/styles/style.scss */
+  /* line 195, src/main/resources/static/web/styles/style.scss */
   .board .field {
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
     align-content: center; }
-    /* line 83, src/main/resources/static/web/styles/style.scss */
+    /* line 201, src/main/resources/static/web/styles/style.scss */
     .board .field .fieldTitle {
-      font-family: 'VT323', monospace;
+      font-family: "VT323", monospace;
       font-size: 20px;
       color: #00ffff; }
 
-/* line 92, src/main/resources/static/web/styles/style.scss */
+/* line 209, src/main/resources/static/web/styles/style.scss */
 .sea,
 .salvoSea {
   width: fit-content;
@@ -137,42 +170,42 @@ header {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center; }
+  /* line 222, src/main/resources/static/web/styles/style.scss */
+  .sea .row,
+  .salvoSea .row {
+    display: flex;
+    flex-flow: row nowrap;
+    align-content: flex-end; }
+    /* line 227, src/main/resources/static/web/styles/style.scss */
+    .sea .row .cell,
+    .salvoSea .row .cell {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: #00ffff;
+      font-weight: bold;
+      font-family: monospace;
+      border: 1px dashed #00ffff;
+      width: 35px;
+      height: 35px;
+      box-shadow: 0 0 10px #00ffff;
+      text-shadow: 0 0 10px #00ffff; }
 
-/* line 109, src/main/resources/static/web/styles/style.scss */
-.row {
-  display: flex;
-  flex-flow: row nowrap;
-  align-content: flex-end; }
-
-/* line 117, src/main/resources/static/web/styles/style.scss */
-.cell {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #00ffff;
-  font-weight: bold;
-  font-family: monospace;
-  border: 1px dashed #00ffff;
-  width: 35px;
-  height: 35px;
-  box-shadow: 0 0 10px #00ffff;
-  text-shadow: 0 0 10px #00ffff; }
-
-/* line 132, src/main/resources/static/web/styles/style.scss */
+/* line 244, src/main/resources/static/web/styles/style.scss */
 .ship {
-  background-image: url(icons/paper-ship.png);
+  background-image: url(icons/pene.png);
   background-size: 25px;
   background-repeat: no-repeat;
   background-position: center; }
 
-/* line 139, src/main/resources/static/web/styles/style.scss */
+/* line 251, src/main/resources/static/web/styles/style.scss */
 .bomb {
-  background-image: url(icons/redship.png);
+  background-image: url(icons/redpene.png);
   background-size: 25px;
   background-repeat: no-repeat;
   background-position: center; }
 
-/* line 146, src/main/resources/static/web/styles/style.scss */
+/* line 258, src/main/resources/static/web/styles/style.scss */
 .aqua {
   background-color: #00ffff; }
 

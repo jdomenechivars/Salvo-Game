@@ -1,148 +1,260 @@
 @import 'partials/normalize';
 
+// Variables
+$game: 'VT323',
+monospace;
+$green-neon: #00ffff;
+//$pink-neon: #ff00ba;
+$pink-neon: #00ffff;
+$dark-pink: #20101a;
+$dark-green: #081a1a;
+$white-shadow:rgba(255, 255, 255, 1);
 
+// Mixins
+@mixin pinkshadow {
+	box-shadow: 0 0 10px $white-shadow, 0 0 20px $white-shadow, 0 0 30px $white-shadow, 0 0 40px $pink-neon, 0 0 70px $pink-neon, 0 0 80px $pink-neon;
+}
+
+@mixin greenshadow {
+	box-shadow: 0 0 10px $white-shadow, 0 0 20px $white-shadow, 0 0 30px $white-shadow, 0 0 40px $green-neon, 0 0 70px $green-neon, 0 0 80px $green-neon, 0 0 100px $green-neon;
+}
+
+@mixin simplegreenshadow {
+	box-shadow: 0 0 10px $green-neon;
+}
+
+@mixin simplepinkshadow {
+	box-shadow: 0 0 10px $pink-neon;
+}
+
+@mixin greentxtshw {
+	text-shadow: 0 0 10px #00ffff;
+}
+
+@mixin row-nowrap {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-ms-flex-flow: row nowrap;
+	flex-flow: row nowrap
+}
+
+@mixin row-wrap {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-ms-flex-flow: row wrap;
+	flex-flow: row wrap
+}
+
+@mixin column-nowrap {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-flow: column nowrap;
+	flex-flow: column nowrap;
+}
+
+@mixin flex-start {
+	-webkit-box-pack: start;
+	-ms-flex-pack: start;
+	justify-content: flex-start;
+}
+
+@mixin flex-end {
+	-webkit-box-pack: end;
+	-ms-flex-pack: end;
+	justify-content: flex-end;
+}
+
+@mixin flex-center {
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+}
+
+@mixin flex-between {
+	-webkit-box-pack: justify;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+}
+
+@mixin align-center {
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+
+@mixin align-end {
+	-webkit-box-align: end;
+	-ms-flex-align: end;
+	align-items: flex-end;
+}
+
+// STYLE //
 body {
-  background-color: #102020;
-  perspective: 300px;
-  overflow: hidden;
+	background-color: $dark-green;
 }
 
-.raw{
-	color: white;
-	font-size: 20px;
-	font-family: "Arial";	
-	border: 1px solid white;
-	
+// GAMES PAGE //
+.wall {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-content: center;
+	align-items: center;
+	width: 100%; //	border: 1px solid white;
+	.fameTitle {
+		margin-top: 20px;
+		color: $pink-neon;
+		font-size: 50px;
+		font-family: $game;
+	}
+	.fame {
+		margin: 25px;
+		border: 1px dashed $pink-neon;
+		width: 80%;
+		color: $pink-neon;
+		font-size: 20px;
+		@include pinkshadow;
+		th {
+			font-family: $game;
+			font-weight: 100;
+			text-align: center;
+			border: 1px dashed $pink-neon;
+			@include simplepinkshadow;
+		}
+		.tcell:first-of-type {
+			font-family: monospace;
+			font-size: 15px;
+			font-weight: bold;
+			text-align: left;
+			padding: 5px;
+		}
+		.tcell {
+			font-family: monospace;
+			font-size: 15px;
+			text-align: center;
+			border: 1px dashed $pink-neon;
+			@include simplepinkshadow;
+		}
+	}
 }
 
-.wall{
-	
-	border: 1px solid white;
-	
-}
-
-li.list{
-	color: white;
+li.list {
+	margin-top: 50px;
+	color: $pink-neon;
 	font-size: 18px;
-	font-family: "Arial";
+	font-family: $game;
 }
 
-header{
-  overflow: hidden;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-content: center;
-  align-items: center;
-  margin:-1px;
-  width: 100%;
-  border: 1px solid #00ffff;
-  height: 100px;
-  font-family: 'VT323', monospace;
-  font-size: 50px;
-  color: #00ffff;
-  
-  .players {
-    width: 100%;
-    display: flex;
-    flex-flow: row nowrap;
-    justify-content: center;
-    
-    .p1, .p2{
-      font-size: 25px;
-    }
-    
-    .vs{
-      font-size: 25px;
-      padding-left: 5px;
-    padding-right: 5px;}
-  
-//  box-shadow: 0 0 10px rgba(255, 255, 255, 1),
-//  0 0 20px rgba(255, 255, 255, 1),
-//  0 0 30px rgba(255, 255, 255, 1),
-//  0 0 40px #00ffff,
-//  0 0 70px #00ffff,
-//  0 0 80px #00ffff,
-//  0 0 100px #00ffff;
-}
-
+// EACH GAME PAGE //
+header {
+	overflow: hidden;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-content: center;
+	align-items: center;
+	margin: -1px;
+	width: 100%;
+	border: 1px solid $green-neon;
+	height: 100px;
+	font-family: $game;
+	font-size: 50px;
+	color: $green-neon;
+	.players {
+		width: 100%;
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: center;
+		.p1,
+		.p2 {
+			font-size: 25px;
+		}
+		.vs {
+			font-size: 25px;
+			padding-left: 5px;
+			padding-right: 5px;
+		}
+	}
 }
 
 
 .board {
-  margin-top: 100px;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: space-around;
-  .field{
-    display: flex;
-    flex-flow: column nowrap;
-    justify-content: center;
-    align-items: center;
-    align-content: center;
-    .fieldTitle{
-    font-family: 'VT323', monospace;
-    font-size: 20px;
-    color: #00ffff;
-    }
-
-  }
+	margin-top: 90px;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-around;
+	.field {
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: center;
+		align-items: center;
+		align-content: center;
+		.fieldTitle {
+			font-family: $game;
+			font-size: 20px;
+			color: $green-neon;
+		}
+	}
 }
 
 .sea,
 .salvoSea {
 
-  width: fit-content;
-  background-color: transparent;
-  border: 1px solid #00ffff;
-  border-radius: 10px;
-  box-shadow: 0 0 10px rgba(255, 255, 255, 1), 0 0 20px rgba(255, 255, 255, 1), 0 0 30px rgba(255, 255, 255, 1), 0 0 40px #00ffff, 0 0 70px #00ffff, 0 0 80px #00ffff, 0 0 100px #00ffff;
-  margin: 50px auto;
-  display: flex;
-  flex-flow: column nowrap;
-  justify-content: center;
-  align-items: center;
+	width: fit-content;
+	background-color: transparent;
+	border: 1px solid $green-neon;
+	border-radius: 10px;
+	@include greenshadow;
+	margin: 50px auto;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
+	.row {
+		//  border: 1px solid black;
+		display: flex;
+		flex-flow: row nowrap;
+		align-content: flex-end;
+		.cell {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: $green-neon;
+			font-weight: bold;
+			font-family: monospace;
+			border: 1px dashed $green-neon;
+			width: 35px;
+			height: 35px;
+			@include simplegreenshadow;
+			text-shadow: 0 0 10px $green-neon;
 
-}
-
-
-.row {
-  //  border: 1px solid black;
-  display: flex;
-  flex-flow: row nowrap;
-  align-content: flex-end;
-
-}
-
-.cell {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #00ffff;
-  font-weight: bold;
-  font-family: monospace;
-  border: 1px dashed #00ffff;
-  width: 35px;
-  height: 35px;
-  box-shadow: 0 0 10px #00ffff;
-  text-shadow: 0 0 10px #00ffff;
-
+		}
+	}
 }
 
 .ship {
-  background-image: url(icons/paper-ship.png);
-  background-size: 25px;
-  background-repeat: no-repeat;
-  background-position: center;
+	background-image: url(icons/pene.png);
+	background-size: 25px;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
 .bomb {
-  background-image: url(icons/redship.png);
-  background-size: 25px;
-  background-repeat: no-repeat;
-  background-position: center;
+	background-image: url(icons/redpene.png);
+	background-size: 25px;
+	background-repeat: no-repeat;
+	background-position: center;
 }
 
-.aqua{
-	background-color: #00ffff;
+.aqua {
+	background-color: $green-neon;
 }

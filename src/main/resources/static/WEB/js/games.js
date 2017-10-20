@@ -74,7 +74,6 @@ function createWall(data) {
 
 }
 
-
 function createHeads(fame, leaderboard) {
 
 	var tHead = document.createElement("thead");
@@ -101,11 +100,14 @@ function createHeads(fame, leaderboard) {
 function createRows(fame, leaderboard, titles) {
 
 	var tBody = document.createElement("tbody");
-	
-    console.log(leaderboard);
-	
-	
-	for (var i = 0; i < leaderboard.length; i++) {
+
+	leaderboard = addTotal(leaderboard);
+
+	leaderboard.sort(function(a, b) {
+    return parseFloat(b.total) - parseFloat(a.total);
+	});
+
+	for (var i = 0; i < 5; i++) {
 
 		var row = document.createElement("tr");
 		row.setAttribute("class", "trow");
@@ -115,6 +117,7 @@ function createRows(fame, leaderboard, titles) {
 		createLeaderInfo(row, eachLeader, titles);
 
 		tBody.appendChild(row);
+//			compare(leaderboard);
 
 	}
 
@@ -122,65 +125,74 @@ function createRows(fame, leaderboard, titles) {
 
 }
 
+function addTotal(leaderboard) {
+
+	for (var i = 0; i < leaderboard.length; i++) {
+
+		var eachLeader = leaderboard[i];
+
+		var wins = eachLeader.win;
+		var tied = eachLeader.tied;
+
+		leaderboard[i].total = wins + (tied * 0.5);
+
+	}
+
+	return leaderboard;
+
+}
+
 function createLeaderInfo(row, eachLeader, titles) {
-	
+
 	var player = eachLeader.playerName;
-	var wins = eachLeader.scores.win;
-	var lost = eachLeader.scores.lost;
-	var tied = eachLeader.scores.tied;
-		
+	var wins = eachLeader.win;
+	var lost = eachLeader.lost;
+	var tied = eachLeader.tied;
+	var total = eachLeader.total;
+
 	for (var k = 0; k < titles.length; k++) {
 
 		var cell = document.createElement("td");
 		cell.setAttribute("class", "tcell");
 
-		
-		
-		switch(titles[k]){
-				
+		switch (titles[k]) {
+
 			case "Player":
 				cell.innerHTML = player;
 				break;
-			
+
 			case "Win":
 				cell.innerHTML = wins;
 				break;
-				
+
 			case "Lost":
 				cell.innerHTML = lost;
 				break;
-			
+
 			case "Tied":
 				cell.innerHTML = tied;
 				break;
-				
+
 			case "Score":
-				
-				var totalScore = wins + (lost*0) + (tied*0.5);
-				
-				cell.innerHTML = totalScore;
+
+				cell.innerHTML = total;
 				break;
-				
-		
-				
+
 		}
-		
-		
+
 		row.appendChild(cell);
 
 	}
-
-	
 
 }
 
 function compare(a, b) {
 
-  if (parseFloat(a.scores.win) < parseFloat(b.scores.win))
-    return -1;
-  if (parseFloat(a.scores.win) > parseFloat(b.scores.win))
-    return 1;
-  return 0;
+	if (parseFloat(a.total) < parseFloat(b.total))
+		return -1;
+	if (parseFloat(a.total) > parseFloat(b.total))
+		return 1;
+	return 0;
 }
 
 function getDate(date) {
