@@ -1,14 +1,34 @@
 package salvo.salvo;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.web.WebAttributes;
+import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 
 import javax.naming.NamingEnumeration;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static org.springframework.security.config.http.MatcherType.ant;
 
 @SpringBootApplication
 public class SalvoApplication {
@@ -28,22 +48,22 @@ public class SalvoApplication {
 
 		return args -> {
 			// save a couple of customers
-            Player p1 = new Player ( "Joan D.");
+            Player p1 = new Player ( "Joan D.", "Temporal80");
 			playRepo.save(p1);
 
-			Player p2 = new Player("Chloe O'Brian");
+			Player p2 = new Player("Chloe O'Brian", "Temporal10");
 			playRepo.save(p2);
 
-			Player p3 = new Player("Kim Bauer");
+			Player p3 = new Player("Kim Bauer", "Temporal14");
 			playRepo.save(p3);
 
-			Player p4 = new Player("Tony Almeida");
+			Player p4 = new Player("Tony Almeida", "mole");
 			playRepo.save(p4);
 
-			Player p5 = new Player("Oruj");
+			Player p5 = new Player("Oruj", "14");
 			playRepo.save(p5);
 
-			Player p6 = new Player("Victor");
+			Player p6 = new Player("Victor", "carpios23");
 			playRepo.save(p6);
 
 
@@ -252,4 +272,95 @@ public class SalvoApplication {
 
 	}
 
+}
+
+@Configuration
+class WebSecurityConfiguration extends GlobalAuthenticationConfigurerAdapter {
+
+    @Autowired
+    private
+    PlayerRepository playerRepository;
+
+    @Override
+    public void init(AuthenticationManagerBuilder auth) throws Exception{
+        auth.userDetailsService(userDetailsService());
+    }
+
+    @Bean
+    UserDetailsService userDetailsService(){
+        return new UserDetailsService() {
+
+            @Override
+            public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+                List<Player> people = playerRepository.findByUserName(username);
+                if (!people.isEmpty()){
+                    Player player = people.get(0);
+                    return new User(player.getUserName(), player.getPassword(), AuthorityUtils.createAuthorityList("USER"));
+                } else {
+
+                    throw new UsernameNotFoundException("Unknown user: " + username);
+
+                }
+            }
+        };
+    }
+}
+
+@EnableWebSecurity
+@Configuration
+class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+
+        //Authority Roles PATHS: //
+        http.authorizeRequests()
+
+                .antMatchers("/web/games.html").permitAll()
+                .antMatchers("/web/styles/*").permitAll()
+                .antMatchers("/web/styles/icons/*").permitAll()
+                .antMatchers("/web/styles/partials/*").permitAll()
+                .antMatchers("/web/styles/images/*").permitAll()
+                .antMatchers("/web/styles/sounds/*").permitAll()
+                .antMatchers("/api/games").permitAll()
+                .antMatchers("/web/js/*").permitAll()
+
+                .antMatchers("/api/game_view/*").hasAuthority("USER")
+                .antMatchers("/web/game.html*").hasAuthority("USER")
+
+                // That blocks all urls //
+                .anyRequest().authenticated();
+
+        //Configurin login and logout //
+
+        http.formLogin()
+                .usernameParameter("username")
+                .passwordParameter("password")
+                .loginPage("/api/login");
+
+        http.logout().logoutUrl("/api/logout");
+
+        // turn off checking for CSRF tokens
+        http.csrf().disable();
+
+        // if user is not authenticated, just send an authentication failure response
+        http.exceptionHandling().authenticationEntryPoint((req, res, exc) -> res.sendError(HttpServletResponse.SC_UNAUTHORIZED));
+
+        // if login is successful, just clear the flags asking for authentication
+        http.formLogin().successHandler((req, res, auth) -> clearAuthenticationAttributes(req));
+
+        // if login fails, just send an authentication failure response
+        http.formLogin().failureHandler((req, res, exc) -> res.sendError(HttpServletResponse.SC_UNAUTHORIZED));
+
+        // if logout is successful, just send a success response
+        http.logout().logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler());
+    }
+
+    private void clearAuthenticationAttributes(HttpServletRequest request) {
+        HttpSession session = request.getSession(false);
+        if (session != null) {
+            session.removeAttribute(WebAttributes.AUTHENTICATION_EXCEPTION);
+        }
+    }
 }
