@@ -1,12 +1,16 @@
 package salvo.salvo;
 
+import javafx.scene.effect.Light;
+import org.hibernate.boot.jaxb.SourceType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.net.SocketPermission;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @RestController
@@ -25,19 +29,33 @@ public class SalvoControler {
     @Autowired
     private PlayerRepository playerRepo;
 
+    // MAIN PAGE JSON //
+
     @RequestMapping("/games")
     public Map<String, Object> gameInfo () {
         Map<String, Object> info = new LinkedHashMap<String, Object>();
         info.put("leaderBoard",returnScores());
         info.put("gamesInfo", returnGames());
+        info.put("currentUserInfo", "3");
         return info;
+    }
+
+    public List<Player> getAll(Authentication authentication) {
+        return playerRepo.findByUserName(authentication.getName());
+    }
+
+    public Map<String, Object> returnCurrentPlayerInfo (Player player){
+        Map<String, Object> current = new LinkedHashMap<>();
+        current.put("currentUser", toPlayer(player));
+        current.put("games", player.getGamePlayers());
+        return current;
     }
 
     public List<Object> returnScores(){
         return playerRepo
                 .findAll()
                 .stream()
-                .map(player -> leaderBoardInfo(player) )
+                .map(player -> leaderBoardInfo(player))
                 .collect(Collectors.toList());
     }
 
@@ -149,6 +167,8 @@ public class SalvoControler {
         return TP;
     }
 
+    // EACH GAME JSON //
+
     @RequestMapping("/game_view/{nn}")
     public Map<String, Object> returnSelectGame(@PathVariable long nn) {
         Map<String, Object> retSG = new LinkedHashMap<String, Object>();
@@ -170,7 +190,6 @@ public class SalvoControler {
                 .collect(Collectors.toList()));
         return retSG;
     }
-
 
     public Map<String, Object> toBoat(Ship ships){
         Map<String, Object> boat = new LinkedHashMap<String, Object>();

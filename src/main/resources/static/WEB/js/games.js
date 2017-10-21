@@ -11,6 +11,10 @@ $(document).ready(function () {
 
 	});
 
+	document.getElementById("login").addEventListener("click", getUserInfo);
+	
+	document.getElementById("logout").addEventListener("click",logout);
+
 })
 
 function createList(data) {
@@ -103,8 +107,8 @@ function createRows(fame, leaderboard, titles) {
 
 	leaderboard = addTotal(leaderboard);
 
-	leaderboard.sort(function(a, b) {
-    return parseFloat(b.total) - parseFloat(a.total);
+	leaderboard.sort(function (a, b) {
+		return parseFloat(b.total) - parseFloat(a.total);
 	});
 
 	for (var i = 0; i < 5; i++) {
@@ -117,7 +121,7 @@ function createRows(fame, leaderboard, titles) {
 		createLeaderInfo(row, eachLeader, titles);
 
 		tBody.appendChild(row);
-//			compare(leaderboard);
+		//			compare(leaderboard);
 
 	}
 
@@ -186,16 +190,34 @@ function createLeaderInfo(row, eachLeader, titles) {
 
 }
 
-function compare(a, b) {
-
-	if (parseFloat(a.total) < parseFloat(b.total))
-		return -1;
-	if (parseFloat(a.total) > parseFloat(b.total))
-		return 1;
-	return 0;
-}
-
 function getDate(date) {
 	var d = new Date(date);
 	return d;
+}
+
+
+function getUserInfo() {
+	
+	var user = document.getElementById("user").value;
+	var pwd = document.getElementById("pwd").value;
+	
+	console.log(user);
+	console.log(pwd);
+	
+	$.post("/api/login", 
+         { username: user,
+           password: pwd}).done(function() { console.log("logged in!");});
+
+	document.getElementById("user").value = "";
+	document.getElementById("pwd").value = "";
+
+
+
+}
+
+function logout(){
+	
+	$.post("/api/logout").done(function() { console.log("logged out"); })
+
+
 }

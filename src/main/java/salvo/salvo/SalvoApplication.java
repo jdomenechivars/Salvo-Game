@@ -48,7 +48,7 @@ public class SalvoApplication {
 
 		return args -> {
 			// save a couple of customers
-            Player p1 = new Player ( "Joan D.", "Temporal80");
+            Player p1 = new Player ( "Joan", "Temporal");
 			playRepo.save(p1);
 
 			Player p2 = new Player("Chloe O'Brian", "Temporal10");
