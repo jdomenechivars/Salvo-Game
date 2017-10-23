@@ -324,6 +324,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/web/styles/sounds/*").permitAll()
                 .antMatchers("/api/games").permitAll()
                 .antMatchers("/web/js/*").permitAll()
+				.antMatchers("/api/players").permitAll()
 
                 .antMatchers("/api/game_view/*").hasAuthority("USER")
                 .antMatchers("/web/game.html*").hasAuthority("USER")

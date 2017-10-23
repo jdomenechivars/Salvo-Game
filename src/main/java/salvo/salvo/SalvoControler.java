@@ -2,12 +2,17 @@ package salvo.salvo;
 
 import javafx.scene.effect.Light;
 import org.hibernate.boot.jaxb.SourceType;
+import org.omg.CORBA.PUBLIC_MEMBER;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.persistence.Entity;
 import java.net.SocketPermission;
 import java.util.*;
 import java.util.function.Function;
@@ -62,7 +67,6 @@ public class SalvoControler {
         return current;
     }
 
-
     public List<Object> returnScores(){
         return playerRepo
                 .findAll()
@@ -101,45 +105,6 @@ public class SalvoControler {
         return leadB;
     }
 
-//    public List<Object> returnScores(Player player){
-//        return player.getScores()
-//                .stream()
-//                .map(score -> score.getScore())
-//                .collect(Collectors.toList());
-//    }
-
-//    public Map<String,Object> countScores (Player player){
-//
-//
-//        Map<String,Object> eachScore = new LinkedHashMap<String, Object>();
-//
-//        int win = 0;
-//        int lost = 0;
-//        int tied = 0;
-//
-//        for ( Score score : player.getScores() ) {
-//
-//            if (score.getScore()  == 1) {
-//
-//                win = win + 1;
-//
-//            } else if (score.getScore() == 0) {
-//
-//                lost = lost + 1;
-//
-//            } else {
-//
-//                tied = tied + 1;
-//
-//            }
-//        }
-//        eachScore.put("win", win);
-//        eachScore.put("lost", lost);
-//        eachScore.put("tied", tied);
-//
-//        return eachScore;
-//    }
-
     public List<Object> returnGames() {
         return gameRepo
                 .findAll()
@@ -177,6 +142,25 @@ public class SalvoControler {
         TP.put("playerId", player.getId());
         TP.put("email", player.getUserName());
         return TP;
+    }
+
+    // Create new Player //
+
+    @RequestMapping(path = "/players", method = RequestMethod.POST)
+    public ResponseEntity<String> createPlayers (String username, String password){
+
+        if (username.isEmpty()) {
+            return new ResponseEntity<>("No name given", HttpStatus.FORBIDDEN);
+        }
+
+        Player player = playerRepo.findByUserName(username);
+        if (player != null) {
+            return new ResponseEntity<>("Name already used", HttpStatus.CONFLICT);
+        }
+
+        playerRepo.save(new Player(username, password));
+        return new ResponseEntity<>("Named added", HttpStatus.CREATED);
+
     }
 
     // EACH GAME JSON //
