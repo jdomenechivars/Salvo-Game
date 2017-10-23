@@ -32,24 +32,36 @@ public class SalvoControler {
     // MAIN PAGE JSON //
 
     @RequestMapping("/games")
-    public Map<String, Object> gameInfo () {
+    public Map<String, Object> gameInfo (Authentication authentication) {
         Map<String, Object> info = new LinkedHashMap<String, Object>();
+
         info.put("leaderBoard",returnScores());
         info.put("gamesInfo", returnGames());
-        info.put("currentUserInfo", "3");
+
+        if(authentication != null) {
+
+            Player currentPlayer = getAll(authentication);
+
+            if (currentPlayer != null) {
+
+                info.put("currentUserInfo", returnCurrentPlayerInfo(currentPlayer));
+
+            }
+        }
         return info;
     }
 
-    public List<Player> getAll(Authentication authentication) {
+    public Player getAll(Authentication authentication) {
         return playerRepo.findByUserName(authentication.getName());
     }
 
     public Map<String, Object> returnCurrentPlayerInfo (Player player){
         Map<String, Object> current = new LinkedHashMap<>();
         current.put("currentUser", toPlayer(player));
-        current.put("games", player.getGamePlayers());
+//        current.put("games", );
         return current;
     }
+
 
     public List<Object> returnScores(){
         return playerRepo
