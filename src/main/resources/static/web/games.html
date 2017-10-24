@@ -44,10 +44,10 @@
 
 <body>
 
-		<img class="spaceship" hidden="hidden" src="styles/images/space-ship.png">
-		
-		<img class="pinkspaceship" hidden="hidden" src="styles/images/space-ship.png">
-		
+	<img class="spaceship" hidden="hidden" src="styles/images/space-ship.png">
+
+	<img class="pinkspaceship" hidden="hidden" src="styles/images/space-ship.png">
+
 	<header>
 
 		<p class="welcome" hidden="hidden">Welcome to Space Battleship War!</p>
@@ -55,8 +55,8 @@
 		<div class="userDisplay">
 
 			<div class="userInfo" hidden="hidden">
-				<p class="user-name"></p>
-
+				<p><span class="user-name"></span>, MAY THE FORCE BE WITH YOU!</p>
+				
 			</div>
 
 			<form id="logout-form" onsubmit="return false">
@@ -82,17 +82,20 @@
 
 	<div class="wall" hidden="hidden">
 
-		<p class="fameTitle" hidden="hidden">THE WALL OF FAME</p>
+		<p class="fameTitle" hidden="hidden">HALL OF FAME</p>
 
-		<table class="fame">
-
-		</table>
+		<table class="fame"></table>
 
 	</div>
 
-	<ol class=games hidden="hidden">
 
-	</ol>
+	<div class=games hidden="hidden">
+
+		<p class="playgame" hidden="hidden">PLAY GAME</p>
+
+		<table class="gameList"></table>
+
+	</div>
 
 	<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
 	<script src="js/games.js"></script>

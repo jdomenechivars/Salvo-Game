@@ -331,7 +331,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 // That blocks all urls //
                 .anyRequest().authenticated();
-
+		http.headers().frameOptions().sameOrigin();
         //Configurin login and logout //
 
         http.formLogin()

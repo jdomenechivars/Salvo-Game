@@ -110,7 +110,7 @@ function createPage(data) {
 
 	printCurrentUser(data);
 	createWall(data);
-	createList(data);
+	createGamesList(data);
 	hideLogPage();
 
 }
@@ -125,12 +125,13 @@ function showLogPage() {
 	$("#logout").hide();
 	$(".wall").hide();
 	$(".fameTitle").hide();
+	$(".playgame").hide();
 	$(".games").hide();
 
 }
 
 function hideLogPage() {
-	
+
 	$(".spaceship").hide();
 	$(".pinkspaceship").hide();
 	$(".welcome").hide();
@@ -139,8 +140,9 @@ function hideLogPage() {
 	$("#logout").show();
 	$(".wall").show();
 	$(".fameTitle").show();
+	$(".playgame").show();
 	$(".games").show();
-	
+
 }
 
 function printCurrentUser(data) {
@@ -172,7 +174,7 @@ function createHeads(fame, leaderboard) {
 	var tHead = document.createElement("thead");
 	var tr = document.createElement("tr");
 
-	var titles = ["Player", "Score", "Win", "Lost", "Tied"];
+	var titles = ["Player", "Score", "Wins", "Losses", "Draws"];
 
 	for (var j = 0; j < titles.length; j++) {
 
@@ -254,15 +256,15 @@ function createLeaderInfo(row, eachLeader, titles) {
 				cell.innerHTML = player;
 				break;
 
-			case "Win":
+			case "Wins":
 				cell.innerHTML = wins;
 				break;
 
-			case "Lost":
+			case "Losses":
 				cell.innerHTML = lost;
 				break;
 
-			case "Tied":
+			case "Draws":
 				cell.innerHTML = tied;
 				break;
 
@@ -279,31 +281,120 @@ function createLeaderInfo(row, eachLeader, titles) {
 
 }
 
-function createList(data) {
+function createGamesList(data) {
 
-	gamesInfo = data.gamesInfo;
+	var gamesInfo = data.gamesInfo;
 
-	var games = $(".games");
+	var games = $(".gameList");
 
 	games.empty();
 
-	for (var i = 0; i < gamesInfo.length; i++) {
+	createGamesHeads(games, gamesInfo);
 
-		var date = gamesInfo[i].gameDate;
+}
 
-		var players = gamesInfo[i].gamePlayers;
+function createGamesHeads(games, gamesInfo) {
 
+	var tHead = document.createElement("thead");
+	var tr = document.createElement("tr");
 
-		var list = document.createElement("li");
-		list.setAttribute("class", "list");
-		list.innerHTML = getDate(date) + ", " +
+	var titles = ["#", "Date", "Player 1", "Player 2", "Status"];
 
-			getPlayers(players);
+	for (var j = 0; j < titles.length; j++) {
 
-		games.append(list);
+		var th = document.createElement("th");
+
+		th.innerHTML = titles[j];
+
+		tr.appendChild(th);
 
 	}
 
+	createGamesRows(games, gamesInfo, titles);
+	tHead.appendChild(tr);
+	games.append(tHead);
+}
+
+function createGamesRows(games, gamesInfo, titles) {
+
+	var tBody = document.createElement("tbody");
+
+	for (var i = 0; i < gamesInfo.length; i++) {
+
+		var eachGame = gamesInfo[i];
+
+		var row = document.createElement("tr");
+		row.setAttribute("class", "trow");
+
+		createGamesCells(row, eachGame, titles);
+
+		tBody.append(row);
+	}
+
+	games.append(tBody);
+
+}
+
+function createGamesCells(row, eachGame, titles) {
+
+	var gameNumber = eachGame.gameId;
+
+	var date = eachGame.gameDate;
+	var gameDate = getDate(date);
+
+	var players = eachGame.gamePlayers;
+	var gamePlayers = getPlayers(players);
+
+	var button = document.createElement("a");
+	button.setAttribute("class", "gameButton");
+	button.innerHTML = "PLAY";
+
+	for (var k = 0; k < titles.length; k++) {
+
+		var cell = document.createElement("td");
+		cell.setAttribute("class", "tcell");
+
+		switch (titles[k]) {
+
+			case "#":
+				cell.innerHTML = gameNumber;
+				break;
+
+			case "Date":
+				cell.innerHTML = gameDate;
+				break;
+
+			case "Player 1":
+				cell.innerHTML = gamePlayers[0];
+				break;
+
+			case "Player 2":
+				cell.innerHTML = gamePlayers[1];
+				break;
+
+			case "Status":
+
+				setGameLink(eachGame,button);
+				cell.appendChild(button);
+				break;
+
+		}
+
+		row.appendChild(cell);
+
+	}
+
+}
+
+function setGameLink(eachGame,button) {
+		
+	var link = "game.html?gp="
+	var gameId = eachGame.gamePlayers[0].gpId;
+	
+	var fullLink=link+gameId;
+	
+	button.setAttribute("href",fullLink);
+	
 }
 
 function getPlayers(players) {
@@ -312,6 +403,7 @@ function getPlayers(players) {
 	var player2 = null;
 
 	for (var j = 0; j < players.length; j++) {
+
 
 		player1 = players[0].player.username;
 
@@ -326,13 +418,22 @@ function getPlayers(players) {
 		}
 	}
 
-	var bothPlayers = player1 + " - VS - " + player2;
+	var bothPlayers = [player1, player2];
 	return bothPlayers;
-
 
 }
 
 function getDate(date) {
+
 	var d = new Date(date);
-	return d;
+
+	var day = d.getDay();
+	var month = d.getMonth();
+	var year = d.getFullYear();
+	var hour = d.getHours();
+	var minutes = d.getMinutes();
+
+	var fullDate = day + "-" + month + "-" + year + ", " + hour + ":" + minutes;
+
+	return fullDate;
 }

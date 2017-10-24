@@ -1,7 +1,8 @@
 @import 'partials/normalize';
 
 // Variables
-$game: 'VT323',monospace;
+$game: 'VT323',
+monospace;
 $green-neon: #00ffff;
 $pink-neon: #ff00ba;
 //$pink-neon: #00ffff;
@@ -186,7 +187,10 @@ body {
 		}
 	}
 }
-.userDisplay{
+
+.userDisplay {
+	text-transform: uppercase;
+	font-size: 30px;
 	width: 100%;
 	display: flex;
 	flex-flow: row nowrap;
@@ -212,59 +216,77 @@ body {
 	@include greenshadow;
 }
 
-.wall {
+.wall,
+.games {
 	display: flex;
 	flex-flow: column nowrap;
 	justify-content: center;
 	align-items: center;
 	width: 100%; //	border: 1px solid white;
-	.fameTitle {
+	.fameTitle,
+	.playgame {
 		margin-top: 20px;
 		color: $green-neon;
 		font-size: 50px;
 		font-family: $game;
 	}
-	.fame {
-		margin: 25px;
-		border: 1px dashed $green-neon;
+	.fame,
+	.gameList {
+		margin: 25px; //		border: 1px dashed $green-neon;
 		width: 80%;
 		color: $green-neon;
-		font-size: 20px;
-//		@include greenshadow;
+		font-size: 20px; //		@include greenshadow;
 		th {
+			text-transform: uppercase; //			background: rgba(0, 255, 255, 0.7);
 			font-family: $game;
+			color: $pink-neon;
 			font-weight: 100;
-			text-align: center;
-			border: 1px dashed $green-neon;
-			@include simplegreenshadow;
+			text-align: center; //			border: 1px dashed $green-neon;
+			//			@include simplegreenshadow;
+		}
+		th:first-of-type {
+			text-align: left;
 		}
 		.tcell:first-of-type {
-			font-family: monospace;
-			font-size: 15px;
+			font-family: $game;
+			text-transform: uppercase;
+			font-size: 18px;
 			font-weight: bold;
 			text-align: left;
 			padding: 5px;
 		}
 		.tcell {
-			font-family: monospace;
-			font-size: 15px;
-			text-align: center;
-			border: 1px dashed $green-neon;
-			@include simplegreenshadow;
+			font-family: $game;
+			font-size: 18px;
+			text-align: center; //			border: 1px dashed $green-neon;
+			//			@include simplegreenshadow;
 		}
 	}
 }
 
-li.list {
-	margin-top: 50px;
+.gameButton {
+	text-align: center;
+	padding: 5px;
+	background: transparent;
+	outline: none;
 	color: $green-neon;
-	font-size: 18px;
-	font-family: $game;
+	@include greentxtshw;
+	cursor: pointer;
+}
+
+.blink {
+	animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+	50% {
+		opacity: 0;
+	}
 }
 
 // EACH GAME PAGE //
 header {
-//	overflow: hidden;
+	//	overflow: hidden;
 	display: flex;
 	flex-flow: column nowrap;
 	justify-content: center;
@@ -365,4 +387,34 @@ header {
 
 .aqua {
 	background-color: $green-neon;
+}
+
+.salvoSea {
+	overflow: hidden;
+}
+
+.salvoSea tr:hover {
+	background-color: rgba(0, 255, 255, 0.4);
+}
+
+.salvoSea td:hover {
+	background-color: $green-neon;
+
+}
+
+.salvoSea td,
+.salvoSea th {
+	position: relative;
+}
+
+.salvoSea td:hover::after,
+.salvoSea th:hover::after {
+	content: "";
+	position: absolute;
+	background-color: rgba(0, 255, 255, 0.4);
+	left: 0;
+	top: -5000px;
+	height: 10000px;
+	width: 100%;
+	z-index: -5;
 }
