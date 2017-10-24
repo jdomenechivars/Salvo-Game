@@ -42,11 +42,11 @@ function getPlayers(data) {
 
 		if (data.gamePlayers[f].gpId == gpId) {
 
-			player1 = data.gamePlayers[f].player.email;
+			player1 = data.gamePlayers[f].player.username;
 
 		} else {
 
-			player2 = data.gamePlayers[f].player.email;
+			player2 = data.gamePlayers[f].player.username;
 
 		}
 

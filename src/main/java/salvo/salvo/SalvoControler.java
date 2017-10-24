@@ -140,7 +140,7 @@ public class SalvoControler {
     public Map<String, Object> toPlayer(Player player){
         Map<String, Object> TP = new LinkedHashMap<String, Object>();
         TP.put("playerId", player.getId());
-        TP.put("email", player.getUserName());
+        TP.put("username", player.getUserName());
         return TP;
     }
 

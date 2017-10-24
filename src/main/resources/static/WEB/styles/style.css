@@ -2,7 +2,7 @@
    v2.0 | 20110126
    License: none (public domain)
 */
-/* line 6, src/main/resources/static/web/styles/partials/_normalize.scss */
+/* line 6, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/partials/_normalize.scss */
 html, body, div, span, applet, object, iframe,
 h1, h2, h3, h4, h5, h6, p, blockquote, pre,
 a, abbr, acronym, address, big, cite, code,
@@ -24,75 +24,179 @@ time, mark, audio, video {
   vertical-align: baseline; }
 
 /* HTML5 display-role reset for older browsers */
-/* line 27, src/main/resources/static/web/styles/partials/_normalize.scss */
+/* line 27, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/partials/_normalize.scss */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
   display: block; }
 
-/* line 31, src/main/resources/static/web/styles/partials/_normalize.scss */
+/* line 31, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/partials/_normalize.scss */
 body {
   line-height: 1; }
 
-/* line 34, src/main/resources/static/web/styles/partials/_normalize.scss */
+/* line 34, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/partials/_normalize.scss */
 ol, ul {
   list-style: none; }
 
-/* line 37, src/main/resources/static/web/styles/partials/_normalize.scss */
+/* line 37, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/partials/_normalize.scss */
 blockquote, q {
   quotes: none; }
 
-/* line 40, src/main/resources/static/web/styles/partials/_normalize.scss */
+/* line 40, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/partials/_normalize.scss */
 blockquote:before, blockquote:after,
 q:before, q:after {
   content: '';
   content: none; }
 
-/* line 45, src/main/resources/static/web/styles/partials/_normalize.scss */
+/* line 45, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/partials/_normalize.scss */
 table {
   border-collapse: collapse;
   border-spacing: 0; }
 
-/* line 101, src/main/resources/static/web/styles/style.scss */
+/* line 104, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
 body {
-  background-color: #081a1a; }
-
-/* line 106, src/main/resources/static/web/styles/style.scss */
-.wall {
+  background-color: #081a1a;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
   align-content: center;
   align-items: center;
+  overflow-x: hidden; }
+
+/* line 114, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
+.spaceship {
+  position: absolute;
+  z-index: -1;
+  left: -256px;
+  top: 166px; }
+
+/* line 121, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
+.pinkspaceship {
+  position: absolute;
+  z-index: -1;
+  right: -256px;
+  top: 166px;
+  transform: rotate(180deg); }
+
+/* line 130, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
+.log {
+  width: 300px;
+  height: 300px;
+  border: 2.5px solid #00ffff;
+  margin: 130px;
+  padding: 20px;
+  box-shadow: 0 0 10px #00ffff; }
+  /* line 137, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
+  .log #login-form {
+    width: 100%;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: space-around;
+    align-items: center;
+    height: 100%; }
+    /* line 144, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
+    .log #login-form label {
+      font-family: "VT323", monospace;
+      font-size: 30px;
+      color: #00ffff;
+      text-shadow: 0 0 10px #00ffff; }
+      /* line 149, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
+      .log #login-form label #user,
+      .log #login-form label #pwd {
+        text-align: center;
+        width: 100%;
+        background: transparent;
+        border: 0px;
+        border-bottom: 1px solid #00ffff;
+        outline: none;
+        color: #ff00ba;
+        font-family: "VT323", monospace;
+        font-size: 28px;
+        text-shadow: 0 0 10px #ff00ba; }
+    /* line 164, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
+    .log #login-form .button-collection {
+      width: 100%;
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-around; }
+      /* line 169, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
+      .log #login-form .button-collection .logbut {
+        text-align: center;
+        padding: 5px;
+        width: 40%;
+        background: transparent;
+        border: 1px solid #00ffff;
+        outline: none;
+        color: #00ffff;
+        font-family: "VT323", monospace;
+        font-size: 25px;
+        box-shadow: 0 0 10px #00ffff;
+        text-shadow: 0 0 10px #00ffff;
+        cursor: pointer; }
+      /* line 183, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
+      .log #login-form .button-collection .logbut:hover {
+        box-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px white, 0 0 40px #00ffff, 0 0 70px #00ffff, 0 0 80px #00ffff, 0 0 100px #00ffff; }
+
+/* line 189, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
+.userDisplay {
+  width: 100%;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between; }
+
+/* line 196, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
+#logout {
+  text-align: center;
+  padding: 5px;
+  width: 100%;
+  background: transparent;
+  border: 1px solid #00ffff;
+  outline: none;
+  color: #00ffff;
+  font-family: "VT323", monospace;
+  font-size: 25px;
+  box-shadow: 0 0 10px #00ffff;
+  text-shadow: 0 0 10px #00ffff;
+  cursor: pointer; }
+
+/* line 211, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
+#logout:hover {
+  box-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px white, 0 0 40px #00ffff, 0 0 70px #00ffff, 0 0 80px #00ffff, 0 0 100px #00ffff; }
+
+/* line 215, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
+.wall {
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center;
+  align-items: center;
   width: 100%; }
-  /* line 113, src/main/resources/static/web/styles/style.scss */
+  /* line 221, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
   .wall .fameTitle {
     margin-top: 20px;
     color: #00ffff;
     font-size: 50px;
     font-family: "VT323", monospace; }
-  /* line 119, src/main/resources/static/web/styles/style.scss */
+  /* line 227, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
   .wall .fame {
     margin: 25px;
     border: 1px dashed #00ffff;
     width: 80%;
     color: #00ffff;
-    font-size: 20px;
-    box-shadow: 0 0 10px white, 0 0 20px white, 0 0 30px white, 0 0 40px #00ffff, 0 0 70px #00ffff, 0 0 80px #00ffff; }
-    /* line 126, src/main/resources/static/web/styles/style.scss */
+    font-size: 20px; }
+    /* line 234, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
     .wall .fame th {
       font-family: "VT323", monospace;
       font-weight: 100;
       text-align: center;
       border: 1px dashed #00ffff;
       box-shadow: 0 0 10px #00ffff; }
-    /* line 133, src/main/resources/static/web/styles/style.scss */
+    /* line 241, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
     .wall .fame .tcell:first-of-type {
       font-family: monospace;
       font-size: 15px;
       font-weight: bold;
       text-align: left;
       padding: 5px; }
-    /* line 140, src/main/resources/static/web/styles/style.scss */
+    /* line 248, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
     .wall .fame .tcell {
       font-family: monospace;
       font-size: 15px;
@@ -100,16 +204,15 @@ body {
       border: 1px dashed #00ffff;
       box-shadow: 0 0 10px #00ffff; }
 
-/* line 150, src/main/resources/static/web/styles/style.scss */
+/* line 258, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
 li.list {
   margin-top: 50px;
   color: #00ffff;
   font-size: 18px;
   font-family: "VT323", monospace; }
 
-/* line 158, src/main/resources/static/web/styles/style.scss */
+/* line 266, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
 header {
-  overflow: hidden;
   display: flex;
   flex-flow: column nowrap;
   justify-content: center;
@@ -122,42 +225,43 @@ header {
   font-family: "VT323", monospace;
   font-size: 50px;
   color: #00ffff; }
-  /* line 172, src/main/resources/static/web/styles/style.scss */
+  /* line 280, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
   header .players {
     width: 100%;
     display: flex;
     flex-flow: row nowrap;
     justify-content: center; }
-    /* line 177, src/main/resources/static/web/styles/style.scss */
+    /* line 285, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
     header .players .p1,
     header .players .p2 {
       font-size: 25px; }
-    /* line 181, src/main/resources/static/web/styles/style.scss */
+    /* line 289, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
     header .players .vs {
       font-size: 25px;
       padding-left: 5px;
       padding-right: 5px; }
 
-/* line 190, src/main/resources/static/web/styles/style.scss */
+/* line 297, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
 .board {
   margin-top: 90px;
   display: flex;
   flex-flow: row nowrap;
-  justify-content: space-around; }
-  /* line 195, src/main/resources/static/web/styles/style.scss */
+  justify-content: space-around;
+  width: 100%; }
+  /* line 303, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
   .board .field {
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
     align-content: center; }
-    /* line 201, src/main/resources/static/web/styles/style.scss */
+    /* line 309, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
     .board .field .fieldTitle {
       font-family: "VT323", monospace;
       font-size: 20px;
       color: #00ffff; }
 
-/* line 209, src/main/resources/static/web/styles/style.scss */
+/* line 317, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
 .sea,
 .salvoSea {
   width: fit-content;
@@ -170,13 +274,13 @@ header {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center; }
-  /* line 222, src/main/resources/static/web/styles/style.scss */
+  /* line 329, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
   .sea .row,
   .salvoSea .row {
     display: flex;
     flex-flow: row nowrap;
     align-content: flex-end; }
-    /* line 227, src/main/resources/static/web/styles/style.scss */
+    /* line 334, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
     .sea .row .cell,
     .salvoSea .row .cell {
       display: flex;
@@ -189,23 +293,24 @@ header {
       width: 35px;
       height: 35px;
       box-shadow: 0 0 10px #00ffff;
-      text-shadow: 0 0 10px #00ffff; }
+      text-shadow: 0 0 10px #00ffff;
+      cursor: crosshair; }
 
-/* line 244, src/main/resources/static/web/styles/style.scss */
+/* line 352, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
 .ship {
-  background-image: url(icons/pene.png);
+  background-image: url(icons/paper-ship.png);
   background-size: 25px;
   background-repeat: no-repeat;
   background-position: center; }
 
-/* line 251, src/main/resources/static/web/styles/style.scss */
+/* line 359, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
 .bomb {
-  background-image: url(icons/redpene.png);
+  background-image: url(icons/redship.png);
   background-size: 25px;
   background-repeat: no-repeat;
   background-position: center; }
 
-/* line 258, src/main/resources/static/web/styles/style.scss */
+/* line 366, ../../Users/Joan Domenech/Desktop/UBIQUM/MODULE 4/salvo/src/main/resources/static/web/styles/style.scss */
 .aqua {
   background-color: #00ffff; }
 

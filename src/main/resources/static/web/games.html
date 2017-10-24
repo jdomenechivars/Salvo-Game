@@ -44,24 +44,45 @@
 
 <body>
 
+		<img class="spaceship" hidden="hidden" src="styles/images/space-ship.png">
+		
+		<img class="pinkspaceship" hidden="hidden" src="styles/images/space-ship.png">
+		
 	<header>
 
-		<form id="login-form" onsubmit="return false">
-			<label>Name: <input id="user" type="text" name="username"></label>
-			<label>Password: <input id="pwd" type="password" name="password"></label>
-			<button id="login">Login</button>
-			<button id="signin">Signup</button>
-		</form>
+		<p class="welcome" hidden="hidden">Welcome to Space Battleship War!</p>
 
-		<form id="logout-form" onsubmit="return false">
-			<button id="logout">Log out</button>
-		</form>
+		<div class="userDisplay">
 
+			<div class="userInfo" hidden="hidden">
+				<p class="user-name"></p>
+
+			</div>
+
+			<form id="logout-form" onsubmit="return false">
+				<button id="logout" hidden="hidden">Log out</button>
+			</form>
+
+		</div>
 	</header>
 
-	<div class="wall">
+	<div class="log" hidden="hidden">
 
-		<p class="fameTitle">THE WALL OF FAME</p>
+		<form id="login-form" onsubmit="return false">
+			<label>Username: <input id="user" type="text" name="username"></label>
+			<label>Password: <input id="pwd" type="password" name="password"></label>
+			<div class="button-collection">
+				<button class="logbut" id="login">Login</button>
+				<button class="logbut" id="signin">Signup</button>
+			</div>
+		</form>
+
+	</div>
+
+
+	<div class="wall" hidden="hidden">
+
+		<p class="fameTitle" hidden="hidden">THE WALL OF FAME</p>
 
 		<table class="fame">
 
@@ -69,7 +90,7 @@
 
 	</div>
 
-	<ol class=games>
+	<ol class=games hidden="hidden">
 
 	</ol>
 
