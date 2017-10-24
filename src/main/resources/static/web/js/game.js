@@ -88,7 +88,7 @@ function createGrid(grid) {
 	for (var i = 0; i < ABC.length; i++) {
 
 		var content = ABC[i];
-		var row = document.createElement("div");
+		var row = document.createElement("tr");
 		row.setAttribute("class", "row");
 
 		createCell(row, content, grid);
@@ -106,7 +106,7 @@ function createCell(row, content, grid) {
 		var sCellName = cellName + "s";
 
 
-		var cell = document.createElement("div");
+		var cell = document.createElement("td");
 
 		if (grid[0].className == "salvoSea") {
 
