@@ -36,7 +36,7 @@ public class SalvoControler {
 
     // MAIN PAGE JSON //
 
-    @RequestMapping("/games")
+    @RequestMapping(path = "/games", method = RequestMethod.GET)
     public Map<String, Object> gameInfo (Authentication authentication) {
         Map<String, Object> info = new LinkedHashMap<String, Object>();
 
@@ -142,6 +142,35 @@ public class SalvoControler {
         TP.put("playerId", player.getId());
         TP.put("username", player.getUserName());
         return TP;
+    }
+
+    @RequestMapping(path = "/games", method = RequestMethod.POST)
+    public Object createGame (Authentication authentication){
+
+
+        if (authentication == null){
+
+            return new ResponseEntity<>("UNAUTHORIZED USER!", HttpStatus.UNAUTHORIZED);
+
+        }
+
+       Game newGame = new Game();
+        gameRepo.save(newGame);
+
+        Player currentPlayer = getAll(authentication);
+
+        GamePlayer newGamePlayer = new GamePlayer(currentPlayer, newGame);
+        gamePlRepo.save(newGamePlayer);
+
+        Object gpId = newGamePlayer.getId();
+
+        return new ResponseEntity<>(makeMap("gpId", gpId), HttpStatus.CREATED);
+    }
+
+    private Map<String, Object> makeMap(String key, Object value) {
+        Map<String, Object> map = new HashMap<>();
+        map.put(key, value);
+        return map;
     }
 
     // Create new Player //
