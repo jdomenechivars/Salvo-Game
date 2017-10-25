@@ -17,7 +17,10 @@ $(document).ready(function () {
 		getShips(data);
 		getSalvoes(data);
 
-	});
+	}).fail(function () {
+			alert("UNAUTHORIZED USER!");
+			location.href = "games.html";
+		});
 
 })
 

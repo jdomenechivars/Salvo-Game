@@ -166,10 +166,29 @@ public class SalvoControler {
     // EACH GAME JSON //
 
     @RequestMapping("/game_view/{nn}")
-    public Map<String, Object> returnSelectGame(@PathVariable long nn) {
+    public Object returnSelectGame(@PathVariable long nn, Authentication authentication) {
+
+        if (authentication == null){
+
+            return new ResponseEntity<>("No Log", HttpStatus.UNAUTHORIZED);
+
+        }
+
+        if (authentication != null){
+
+            String  currentUserName = gamePlRepo.findOne(nn).getPlayer().getUserName();
+
+            if( getAll(authentication).getUserName() != currentUserName){
+
+                return new ResponseEntity<>("UNAUTHORIZED USER!", HttpStatus.FORBIDDEN);
+
+            }
+        }
+
         Map<String, Object> retSG = new LinkedHashMap<String, Object>();
 
         GamePlayer currentGamePlayer = gamePlRepo.findOne(nn);
+
         retSG.put("gpId", currentGamePlayer.getId());
         retSG.put("created", currentGamePlayer.getGamePlayerDate());
         retSG.put("gamePlayers",currentGamePlayer.getGame().getGamePlayers()

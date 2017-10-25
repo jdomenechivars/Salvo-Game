@@ -283,17 +283,16 @@ function createLeaderInfo(row, eachLeader, titles) {
 
 function createGamesList(data) {
 
-	var gamesInfo = data.gamesInfo;
 
 	var games = $(".gameList");
 
 	games.empty();
 
-	createGamesHeads(games, gamesInfo);
+	createGamesHeads(games, data);
 
 }
 
-function createGamesHeads(games, gamesInfo) {
+function createGamesHeads(games, data) {
 
 	var tHead = document.createElement("thead");
 	var tr = document.createElement("tr");
@@ -310,12 +309,14 @@ function createGamesHeads(games, gamesInfo) {
 
 	}
 
-	createGamesRows(games, gamesInfo, titles);
+	createGamesRows(games, data, titles);
 	tHead.appendChild(tr);
 	games.append(tHead);
 }
 
-function createGamesRows(games, gamesInfo, titles) {
+function createGamesRows(games, data, titles) {
+
+	var gamesInfo = data.gamesInfo;
 
 	var tBody = document.createElement("tbody");
 
@@ -326,7 +327,7 @@ function createGamesRows(games, gamesInfo, titles) {
 		var row = document.createElement("tr");
 		row.setAttribute("class", "trow");
 
-		createGamesCells(row, eachGame, titles);
+		createGamesCells(row, eachGame, titles, data);
 
 		tBody.append(row);
 	}
@@ -335,7 +336,7 @@ function createGamesRows(games, gamesInfo, titles) {
 
 }
 
-function createGamesCells(row, eachGame, titles) {
+function createGamesCells(row, eachGame, titles, data) {
 
 	var gameNumber = eachGame.gameId;
 
@@ -343,11 +344,10 @@ function createGamesCells(row, eachGame, titles) {
 	var gameDate = getDate(date);
 
 	var players = eachGame.gamePlayers;
-	var gamePlayers = getPlayers(players);
+	var gamePlayers = getPlayersName(players);
 
 	var button = document.createElement("a");
 	button.setAttribute("class", "gameButton");
-	button.innerHTML = "PLAY";
 
 	for (var k = 0; k < titles.length; k++) {
 
@@ -374,7 +374,7 @@ function createGamesCells(row, eachGame, titles) {
 
 			case "Status":
 
-				setGameLink(eachGame,button);
+				setGameLink(eachGame, button, data);
 				cell.appendChild(button);
 				break;
 
@@ -386,18 +386,44 @@ function createGamesCells(row, eachGame, titles) {
 
 }
 
-function setGameLink(eachGame,button) {
-		
+function setGameLink(eachGame, button, data) {
+
+	var currentUser = data.currentUserInfo.currentUser.playerId;
+
+	var player1 = eachGame.gamePlayers[0];
+	var player2 = eachGame.gamePlayers[1];
+
+	var player1id = player1.player.playerId;
+	var player2id = player2.player.playerId;
+
+	var player1GpId = player1.gpId;
+	var player2GpId = player2.gpId;
+
 	var link = "game.html?gp="
-	var gameId = eachGame.gamePlayers[0].gpId;
-	
-	var fullLink=link+gameId;
-	
-	button.setAttribute("href",fullLink);
-	
+
+	if (currentUser == player1id) {
+
+		button.setAttribute("href", link + player1GpId);
+		button.innerHTML = "PLAY";
+		button.classList.add("blink");
+
+	} else if (currentUser == player2id) {
+
+		button.setAttribute("href", link + player2GpId);
+		button.innerHTML = "PLAY";
+		button.classList.add("blink");
+		
+
+	} else {
+
+		button.innerHTML = "VIEW";
+
+	}
+
+
 }
 
-function getPlayers(players) {
+function getPlayersName(players) {
 
 	var player1 = null;
 	var player2 = null;
