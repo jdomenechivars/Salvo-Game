@@ -227,16 +227,19 @@ body {
       text-align: center; }
 
 /* line 267, src/main/resources/static/web/styles/style.scss */
-.gameButton {
+.gameButton,
+#createGame {
   text-align: center;
   padding: 5px;
   background: transparent;
   outline: none;
   color: #00ffff;
   text-shadow: 0 0 10px #00ffff;
-  cursor: pointer; }
+  cursor: pointer;
+  border: 1px solid #00ffff;
+  min-width: 80px; }
 
-/* line 277, src/main/resources/static/web/styles/style.scss */
+/* line 280, src/main/resources/static/web/styles/style.scss */
 .blink {
   animation: blinker 1s linear infinite; }
 
@@ -244,7 +247,7 @@ body {
   50% {
     opacity: 0; } }
 
-/* line 288, src/main/resources/static/web/styles/style.scss */
+/* line 291, src/main/resources/static/web/styles/style.scss */
 header {
   display: flex;
   flex-flow: column nowrap;
@@ -258,43 +261,89 @@ header {
   font-family: "VT323", monospace;
   font-size: 50px;
   color: #00ffff; }
-  /* line 302, src/main/resources/static/web/styles/style.scss */
+  /* line 305, src/main/resources/static/web/styles/style.scss */
   header .players {
     width: 100%;
     display: flex;
     flex-flow: row nowrap;
     justify-content: center; }
-    /* line 307, src/main/resources/static/web/styles/style.scss */
+    /* line 310, src/main/resources/static/web/styles/style.scss */
     header .players .p1,
     header .players .p2 {
       font-size: 25px; }
-    /* line 311, src/main/resources/static/web/styles/style.scss */
+    /* line 314, src/main/resources/static/web/styles/style.scss */
     header .players .vs {
       font-size: 25px;
       padding-left: 5px;
       padding-right: 5px; }
 
-/* line 319, src/main/resources/static/web/styles/style.scss */
+/* line 322, src/main/resources/static/web/styles/style.scss */
+.fleet {
+  position: absolute;
+  background-color: #081a1a;
+  width: 50%;
+  height: 80%;
+  z-index: 15;
+  right: 0;
+  bottom: 0; }
+  /* line 330, src/main/resources/static/web/styles/style.scss */
+  .fleet .shipsTitle {
+    font-family: "VT323", monospace;
+    font-size: 20px;
+    color: #00ffff;
+    text-align: center; }
+  /* line 336, src/main/resources/static/web/styles/style.scss */
+  .fleet .shipsTable {
+    width: fit-content;
+    background-color: transparent;
+    border: 1px solid #00ffff;
+    border-radius: 10px;
+    margin: 10px auto;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center; }
+    /* line 346, src/main/resources/static/web/styles/style.scss */
+    .fleet .shipsTable .srow {
+      display: flex;
+      flex-flow: row nowrap;
+      align-content: flex-end; }
+      /* line 350, src/main/resources/static/web/styles/style.scss */
+      .fleet .shipsTable .srow .scell {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: #00ffff;
+        font-weight: bold;
+        font-family: monospace;
+        border: 1px dashed #00ffff;
+        width: 35px;
+        height: 35px;
+        box-shadow: 0 0 10px #00ffff;
+        text-shadow: 0 0 10px #00ffff;
+        cursor: move; }
+
+/* line 368, src/main/resources/static/web/styles/style.scss */
 .board {
   margin-top: 90px;
   display: flex;
   flex-flow: row nowrap;
   justify-content: space-around;
   width: 100%; }
-  /* line 325, src/main/resources/static/web/styles/style.scss */
+  /* line 374, src/main/resources/static/web/styles/style.scss */
   .board .field {
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
     align-items: center;
     align-content: center; }
-    /* line 331, src/main/resources/static/web/styles/style.scss */
+    /* line 380, src/main/resources/static/web/styles/style.scss */
     .board .field .fieldTitle {
       font-family: "VT323", monospace;
       font-size: 20px;
       color: #00ffff; }
 
-/* line 339, src/main/resources/static/web/styles/style.scss */
+/* line 388, src/main/resources/static/web/styles/style.scss */
 .sea,
 .salvoSea {
   width: fit-content;
@@ -307,13 +356,13 @@ header {
   flex-flow: column nowrap;
   justify-content: center;
   align-items: center; }
-  /* line 351, src/main/resources/static/web/styles/style.scss */
+  /* line 400, src/main/resources/static/web/styles/style.scss */
   .sea .row,
   .salvoSea .row {
     display: flex;
     flex-flow: row nowrap;
     align-content: flex-end; }
-    /* line 356, src/main/resources/static/web/styles/style.scss */
+    /* line 405, src/main/resources/static/web/styles/style.scss */
     .sea .row .cell,
     .salvoSea .row .cell {
       display: flex;
@@ -329,42 +378,42 @@ header {
       text-shadow: 0 0 10px #00ffff;
       cursor: crosshair; }
 
-/* line 374, src/main/resources/static/web/styles/style.scss */
+/* line 423, src/main/resources/static/web/styles/style.scss */
 .ship {
   background-image: url(icons/paper-ship.png);
   background-size: 25px;
   background-repeat: no-repeat;
   background-position: center; }
 
-/* line 381, src/main/resources/static/web/styles/style.scss */
+/* line 430, src/main/resources/static/web/styles/style.scss */
 .bomb {
   background-image: url(icons/redship.png);
   background-size: 25px;
   background-repeat: no-repeat;
   background-position: center; }
 
-/* line 388, src/main/resources/static/web/styles/style.scss */
+/* line 437, src/main/resources/static/web/styles/style.scss */
 .aqua {
   background-color: #00ffff; }
 
-/* line 392, src/main/resources/static/web/styles/style.scss */
+/* line 441, src/main/resources/static/web/styles/style.scss */
 .salvoSea {
   overflow: hidden; }
 
-/* line 396, src/main/resources/static/web/styles/style.scss */
+/* line 445, src/main/resources/static/web/styles/style.scss */
 .salvoSea tr:hover {
   background-color: rgba(0, 255, 255, 0.4); }
 
-/* line 400, src/main/resources/static/web/styles/style.scss */
+/* line 449, src/main/resources/static/web/styles/style.scss */
 .salvoSea td:hover {
   background-color: #00ffff; }
 
-/* line 405, src/main/resources/static/web/styles/style.scss */
+/* line 454, src/main/resources/static/web/styles/style.scss */
 .salvoSea td,
 .salvoSea th {
   position: relative; }
 
-/* line 410, src/main/resources/static/web/styles/style.scss */
+/* line 459, src/main/resources/static/web/styles/style.scss */
 .salvoSea td:hover::after,
 .salvoSea th:hover::after {
   content: "";

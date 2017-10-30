@@ -2,7 +2,6 @@
 /*eslint "no-console": "off"*/
 /*global $ */
 
-
 $(document).ready(function () {
 
 	var sea = $(".sea");
@@ -10,7 +9,7 @@ $(document).ready(function () {
 
 	createGrid(sea);
 	createGrid(salvoSea);
-	
+
 	$.get("/api/game_view/" + getParameterByName("gp"), function (data) {
 
 		getPlayers(data);
@@ -18,9 +17,9 @@ $(document).ready(function () {
 		getSalvoes(data);
 
 	}).fail(function () {
-			alert("UNAUTHORIZED USER!");
-			location.href = "games.html";
-		});
+		alert("UNAUTHORIZED USER!");
+		location.href = "games.html";
+	});
 
 })
 
@@ -63,6 +62,11 @@ function printPlayers(player1, player2) {
 
 	//player 2 null //
 
+	if (player2 == null) {
+
+		player2 = "Waiting for player";
+	}
+
 	var players = $(".players");
 
 	var p1 = document.createElement("p");
@@ -71,6 +75,12 @@ function printPlayers(player1, player2) {
 
 	var p2 = document.createElement("p");
 	p2.setAttribute("class", "p2");
+
+	if (player2 == "Waiting for player") {
+
+		p2.classList.add("blink");
+
+	}
 
 	p2.innerHTML = player2 + " -";
 
@@ -159,6 +169,13 @@ function createCell(row, content, grid) {
 function getShips(data) {
 
 	var ships = data.ships;
+	
+	console.log(ships);
+	
+	if(ships.length < 5){
+		
+		$(".fleet").show();
+	}
 
 	for (var x = 0; x < ships.length; x++) {
 
@@ -188,36 +205,37 @@ function printShips(shipType, shipLocation) {
 
 function getSalvoes(data) {
 
-//	console.log(data);
+	//	console.log(data);
 
 	var salvoes = data.salvoes;
+
 
 	var gpId = getParameterByName("gp");
 
 	var salvoesP1 = null;
 	var salvoesP2 = null;
 
+	if (salvoes.length > 1) {
 
-	for (var k = 0; k < salvoes.length; k++) {
+		for (var k = 0; k < salvoes.length; k++) {
 
-		//chequeo si salvo [k] tiene size o no.
+			//chequeo si salvo [k] tiene size o no.
+			if (salvoes[k][0].gpId == gpId) {
 
-		if (salvoes[k][0].gpId == gpId) {
-
-			salvoesP1 = salvoes[k];
+				salvoesP1 = salvoes[k];
 
 
-		} else {
+			} else {
 
-			salvoesP2 = salvoes[k];
+				salvoesP2 = salvoes[k];
+				
+			}
 
 		}
 
+		printMySalvoes(salvoesP1);
+		printEnemySavloes(salvoesP2);
 	}
-
-	printMySalvoes(salvoesP1);
-	printEnemySavloes(salvoesP2);
-
 }
 
 function printMySalvoes(salvoes) {
@@ -267,5 +285,53 @@ function printEnemySavloes(salvoes) {
 		}
 
 	}
+
+}
+
+function buildShip(){
+	
+	var type = "cruiser";
+	var locations =["A5","A6"];
+	
+	var ship = new Object;
+	
+	ship["type"] = type;
+	ship["locations"] = locations;
+	
+	
+	createShips(ship);
+}
+
+function createShips(ship){
+	
+	var ships = [];
+	
+	ships.push(ship);
+	
+	placeShips(ships);
+	
+}
+
+function placeShips(ships) {
+	
+	$.ajax({
+		method: "POST",
+		url: "/api/games/players/" + getParameterByName("gp") + "/ships",
+		contentType: "application/json",
+		data: JSON.stringify(ship)
+	}).done(
+
+			function (response) {
+				
+				console.log(response);
+
+			})
+		.fail(function (response) {
+			console.log(response.responseText);
+			alert("ERROR");
+
+		});
+
+	$(".fleet").hide();
 
 }

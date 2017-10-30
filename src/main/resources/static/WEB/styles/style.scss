@@ -264,7 +264,8 @@ body {
 	}
 }
 
-.gameButton {
+.gameButton,
+#createGame {
 	text-align: center;
 	padding: 5px;
 	background: transparent;
@@ -272,6 +273,8 @@ body {
 	color: $green-neon;
 	@include greentxtshw;
 	cursor: pointer;
+	border: 1px solid $green-neon;
+	min-width: 80px;
 }
 
 .blink {
@@ -313,6 +316,52 @@ header {
 			padding-left: 5px;
 			padding-right: 5px;
 		}
+	}
+}
+
+.fleet {
+	position: absolute;
+	background-color: $dark-green;
+	width: 50%;
+	height: 80%;
+	z-index: 15;
+	right: 0;
+	bottom: 0;
+	.shipsTitle {
+		font-family: $game;
+		font-size: 20px;
+		color: $green-neon;
+		text-align: center;
+	}
+	.shipsTable {
+		width: fit-content;
+		background-color: transparent;
+		border: 1px solid $green-neon;
+		border-radius: 10px;
+		margin: 10px auto;
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: center;
+		align-items: center;
+		.srow {
+			display: flex;
+			flex-flow: row nowrap;
+			align-content: flex-end;
+			.scell{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: $green-neon;
+			font-weight: bold;
+			font-family: monospace;
+			border: 1px dashed $green-neon;
+			width: 35px;
+			height: 35px;
+			@include simplegreenshadow;
+			text-shadow: 0 0 10px $green-neon;
+			cursor: move;}
+		}
+
 	}
 }
 

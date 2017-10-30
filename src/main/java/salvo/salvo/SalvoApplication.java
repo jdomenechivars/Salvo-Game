@@ -57,7 +57,7 @@ public class SalvoApplication {
 			Player p3 = new Player("Kim Bauer", "Temporal14");
 			playRepo.save(p3);
 
-			Player p4 = new Player("Tony Almeida", "mole");
+			Player p4 = new Player("Roosy", "14");
 			playRepo.save(p4);
 
 			Player p5 = new Player("Oruj", "14");

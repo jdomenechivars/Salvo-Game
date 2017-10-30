@@ -7,10 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.Entity;
 import java.net.SocketPermission;
@@ -33,6 +30,8 @@ public class SalvoControler {
 
     @Autowired
     private PlayerRepository playerRepo;
+
+    @Autowired ShipRepository shipRepo;
 
     // MAIN PAGE JSON //
 
@@ -144,6 +143,8 @@ public class SalvoControler {
         return TP;
     }
 
+    // CREATE NEW GAME //
+
     @RequestMapping(path = "/games", method = RequestMethod.POST)
     public Object createGame (Authentication authentication){
 
@@ -173,7 +174,7 @@ public class SalvoControler {
         return map;
     }
 
-    // Create new Player //
+    // CREATE NEW PLAYER //
 
     @RequestMapping(path = "/players", method = RequestMethod.POST)
     public ResponseEntity<String> createPlayers (String username, String password){
@@ -259,5 +260,69 @@ public class SalvoControler {
 
         return eachSalvo;
     }
+
+    // JOIN A STARTED GAME //
+
+    @RequestMapping(path = "/game/{nn}/players", method = RequestMethod.POST)
+    public Object joinSelectedGame(@PathVariable long nn, Authentication authentication){
+
+
+        if (authentication == null){
+
+            return new ResponseEntity<>("UNAUTHORIZED USER!", HttpStatus.UNAUTHORIZED);
+
+        }
+
+        Player currentPlayer = getAll(authentication);
+
+        Game currentGame = gameRepo.findOne(nn);
+
+        if(currentGame.getGamePlayers().size() == 1){
+
+            GamePlayer newGamePlayer = new GamePlayer(currentPlayer, currentGame);
+            gamePlRepo.save(newGamePlayer);
+
+            Object gpId = newGamePlayer.getId();
+
+            return new ResponseEntity<>(makeMap("gpId", gpId), HttpStatus.CREATED);
+
+        }
+
+        return new ResponseEntity<>("GAME NOT AVAILABLE, REFRESH!", HttpStatus.FORBIDDEN);
+
+    }
+
+    // SHIPS PLACEMENT //
+
+    @RequestMapping(path = "/games/players/{nn}/ships", method = RequestMethod.POST)
+    public Object placingShips(@PathVariable long nn, Authentication authentication, @RequestBody Set<Ship> ships ) {
+
+        if (authentication == null ){
+
+            return new ResponseEntity<>("UNAUTHORIZED USER!", HttpStatus.UNAUTHORIZED);
+
+        }
+
+        Player currentPlayer = getAll(authentication);
+
+        GamePlayer currentGP = gamePlRepo.findOne(nn);
+
+        if( currentGP.getPlayer().getId() != currentPlayer.getId()){
+
+            return new ResponseEntity<>("UNAUTHORIZED USER!", HttpStatus.UNAUTHORIZED);
+
+        }
+
+        for (Ship ship : ships) {
+
+            currentGP.addShip(ship);
+            shipRepo.save(ship);
+        }
+
+        return new ResponseEntity<>("", HttpStatus.CREATED);
+
+
+    }
+
 
 }

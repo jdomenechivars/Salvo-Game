@@ -26,8 +26,25 @@ $(document).ready(function () {
 	document.getElementById("logout").addEventListener("click", logout);
 
 	document.getElementById("signin").addEventListener("click", signin);
+	document.getElementById("createGame").addEventListener("click", createNewGame);
 
-})
+	$(document).on("click", ".play", function () {
+
+		var GPId = this.getAttribute("data-gp");
+
+		playGame(GPId);
+
+	});
+
+	$(document).on("click", ".join", function () {
+
+		var gameId = this.getAttribute("data-game");
+
+		joinGame(gameId);
+
+	});
+
+});
 
 function getUserInfo() {
 
@@ -38,7 +55,6 @@ function getUserInfo() {
 
 	document.getElementById("user").value = "";
 	document.getElementById("pwd").value = "";
-
 }
 
 function login(user, pwd) {
@@ -50,20 +66,16 @@ function login(user, pwd) {
 		.done(
 			function () {
 				console.log("logged in!");
-
+				
 				$.get("/api/games", function (data) {
 					createPage(data);
 				});
-
-
 			}
-
 		)
 		.fail(function () {
 			console.log("Fatal Error!")
 			alert("Invalid User or Password! Check it and try again!");
 		});
-
 }
 
 function logout() {
@@ -127,6 +139,7 @@ function showLogPage() {
 	$(".fameTitle").hide();
 	$(".playgame").hide();
 	$(".games").hide();
+	$("#createGame").hide();
 
 }
 
@@ -142,6 +155,7 @@ function hideLogPage() {
 	$(".fameTitle").show();
 	$(".playgame").show();
 	$(".games").show();
+	$("#createGame").show();
 
 }
 
@@ -346,9 +360,6 @@ function createGamesCells(row, eachGame, titles, data) {
 	var players = eachGame.gamePlayers;
 	var gamePlayers = getPlayersName(players);
 
-	var button = document.createElement("a");
-	button.setAttribute("class", "gameButton");
-
 	for (var k = 0; k < titles.length; k++) {
 
 		var cell = document.createElement("td");
@@ -358,6 +369,7 @@ function createGamesCells(row, eachGame, titles, data) {
 
 			case "#":
 				cell.innerHTML = gameNumber;
+				cell.setAttribute("data-gameNumber", gameNumber);
 				break;
 
 			case "Date":
@@ -374,8 +386,7 @@ function createGamesCells(row, eachGame, titles, data) {
 
 			case "Status":
 
-				setGameLink(eachGame, button, data);
-				cell.appendChild(button);
+				createButtons(eachGame, data, cell);
 				break;
 
 		}
@@ -386,40 +397,71 @@ function createGamesCells(row, eachGame, titles, data) {
 
 }
 
-function setGameLink(eachGame, button, data) {
+function createButtons(eachGame, data, cell) {
 
-	var currentUser = data.currentUserInfo.currentUser.playerId;
+	var gameId = eachGame.gameId;
+
+	var button = document.createElement("button");
+	button.setAttribute("class", "gameButton");
+
+	var currentUserId = data.currentUserInfo.currentUser.playerId;
 
 	var player1 = eachGame.gamePlayers[0];
-	var player2 = eachGame.gamePlayers[1];
-
 	var player1id = player1.player.playerId;
-	var player2id = player2.player.playerId;
-
 	var player1GpId = player1.gpId;
-	var player2GpId = player2.gpId;
 
-	var link = "game.html?gp="
+	var player2 = eachGame.gamePlayers[1];
+	var player2id = null;
+	var player2GpId = null;
 
-	if (currentUser == player1id) {
+	if (player2 != null) {
 
-		button.setAttribute("href", link + player1GpId);
-		button.innerHTML = "PLAY";
-		button.classList.add("blink");
+		player2id = player2.player.playerId;
+		player2GpId = player2.gpId;
+	}
 
-	} else if (currentUser == player2id) {
+	if (eachGame.gamePlayers.length == 2) {
 
-		button.setAttribute("href", link + player2GpId);
-		button.innerHTML = "PLAY";
-		button.classList.add("blink");
-		
+		if (currentUserId == player1id) {
+
+			button.innerHTML = "PLAY";
+			button.setAttribute("data-game", gameId);
+			button.setAttribute("data-GP", player1GpId)
+			button.classList.add("play");
+			button.classList.remove("join");
+			cell.appendChild(button);
+
+		} else if (currentUserId == player2id) {
+
+			button.innerHTML = "PLAY";
+			button.setAttribute("data-game", gameId);
+			button.setAttribute("data-GP", player2GpId)
+			button.classList.add("play");
+			button.classList.remove("join");
+			cell.appendChild(button);
+		}
 
 	} else {
 
-		button.innerHTML = "VIEW";
+		if (player2 == null && player1id == currentUserId) {
+
+			button.innerHTML = "PLAY";
+			button.setAttribute("data-game", gameId);
+			button.setAttribute("data-GP", player1GpId);
+			button.classList.add("play");
+			button.classList.remove("join");
+			cell.appendChild(button);
+
+		} else {
+
+			button.innerHTML = "JOIN";
+			button.setAttribute("data-game", gameId);
+			button.classList.remove("play");
+			button.classList.add("join");
+			cell.appendChild(button);
+		}
 
 	}
-
 
 }
 
@@ -429,7 +471,6 @@ function getPlayersName(players) {
 	var player2 = null;
 
 	for (var j = 0; j < players.length; j++) {
-
 
 		player1 = players[0].player.username;
 
@@ -449,12 +490,61 @@ function getPlayersName(players) {
 
 }
 
+function createNewGame() {
+
+	$.post("/api/games", {})
+		.done(
+
+			function (response) {
+				console.log(response);
+
+				var gameId = response.gpId;
+				console.log(gameId);
+				location.href = "game.html?gp=" + gameId;
+
+			}
+		)
+		.fail(function (response) {
+			console.log(response.responseText);
+			alert("ERROR");
+
+		});
+
+}
+
+function playGame(GPId) {
+
+	location.href = "/web/game.html?gp=" + GPId;
+}
+
+function joinGame(gameId) {
+
+	$.post("/api/game/"+gameId+"/players", {})
+		.done(
+
+			function (response) {
+
+				console.log(response);
+
+				var gpId = response.gpId;
+				console.log(gameId);
+				location.href = "game.html?gp=" + gpId;
+
+			})
+		.fail(function (response) {
+			console.log(response.responseText);
+			alert("ERROR");
+
+		});
+
+}
+
 function getDate(date) {
 
 	var d = new Date(date);
 
-	var day = d.getDay();
-	var month = d.getMonth();
+	var day = d.getDate();
+	var month = d.getMonth() + 1;
 	var year = d.getFullYear();
 	var hour = d.getHours();
 	var minutes = d.getMinutes();
