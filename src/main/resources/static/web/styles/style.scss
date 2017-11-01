@@ -1,0 +1,473 @@
+@import 'partials/normalize';
+
+// Variables
+$game: 'VT323',
+monospace;
+$green-neon: #00ffff;
+$pink-neon: #ff00ba;
+//$pink-neon: #00ffff;
+$dark-pink: #20101a;
+$dark-green: #081a1a;
+$white-shadow:rgba(255, 255, 255, 1);
+
+// Mixins
+@mixin pinkshadow {
+	box-shadow: 0 0 10px $white-shadow, 0 0 20px $white-shadow, 0 0 30px $white-shadow, 0 0 40px $pink-neon, 0 0 70px $pink-neon, 0 0 80px $pink-neon;
+}
+
+@mixin greenshadow {
+	box-shadow: 0 0 10px $white-shadow, 0 0 20px $white-shadow, 0 0 30px $white-shadow, 0 0 40px $green-neon, 0 0 70px $green-neon, 0 0 80px $green-neon, 0 0 100px $green-neon;
+}
+
+@mixin simplegreenshadow {
+	box-shadow: 0 0 10px $green-neon;
+}
+
+@mixin simplepinkshadow {
+	box-shadow: 0 0 10px $pink-neon;
+}
+
+@mixin greentxtshw {
+	text-shadow: 0 0 10px $green-neon;
+}
+
+@mixin pinktxtshw {
+	text-shadow: 0 0 10px $pink-neon;
+}
+
+@mixin row-nowrap {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-ms-flex-flow: row nowrap;
+	flex-flow: row nowrap
+}
+
+@mixin row-wrap {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: horizontal;
+	-webkit-box-direction: normal;
+	-ms-flex-flow: row wrap;
+	flex-flow: row wrap
+}
+
+@mixin column-nowrap {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-flow: column nowrap;
+	flex-flow: column nowrap;
+}
+
+@mixin flex-start {
+	-webkit-box-pack: start;
+	-ms-flex-pack: start;
+	justify-content: flex-start;
+}
+
+@mixin flex-end {
+	-webkit-box-pack: end;
+	-ms-flex-pack: end;
+	justify-content: flex-end;
+}
+
+@mixin flex-center {
+	-webkit-box-pack: center;
+	-ms-flex-pack: center;
+	justify-content: center;
+}
+
+@mixin flex-between {
+	-webkit-box-pack: justify;
+	-ms-flex-pack: justify;
+	justify-content: space-between;
+}
+
+@mixin align-center {
+	-webkit-box-align: center;
+	-ms-flex-align: center;
+	align-items: center;
+}
+
+@mixin align-end {
+	-webkit-box-align: end;
+	-ms-flex-align: end;
+	align-items: flex-end;
+}
+
+// STYLE //
+body {
+	background-color: $dark-green;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-content: center;
+	align-items: center;
+	overflow-x: hidden;
+}
+
+.spaceship {
+	position: absolute;
+	z-index: -1;
+	left: -256px;
+	top: 166px;
+}
+
+.pinkspaceship {
+	position: absolute;
+	z-index: -1;
+	right: -256px;
+	top: 166px;
+	transform: rotate(180deg);
+}
+
+// GAMES PAGE //
+.log {
+	width: 300px;
+	height: 300px;
+	border: 2.5px solid $green-neon;
+	margin: 130px;
+	padding: 20px;
+	@include simplegreenshadow;
+	#login-form {
+		width: 100%;
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: space-around;
+		align-items: center;
+		height: 100%;
+		label {
+			font-family: $game;
+			font-size: 30px;
+			color: $green-neon;
+			@include greentxtshw;
+			#user,
+			#pwd {
+				text-align: center;
+				width: 100%;
+				background: transparent;
+				border: 0px;
+				border-bottom: 1px solid $green-neon;
+				outline: none;
+				color: $pink-neon;
+				font-family: $game;
+				font-size: 28px;
+				@include pinktxtshw;
+
+			}
+		}
+		.button-collection {
+			width: 100%;
+			display: flex;
+			flex-flow: row nowrap;
+			justify-content: space-around;
+			.logbut {
+				text-align: center;
+				padding: 5px;
+				width: 40%;
+				background: transparent;
+				border: 1px solid $green-neon;
+				outline: none;
+				color: $green-neon;
+				font-family: $game;
+				font-size: 25px;
+				@include simplegreenshadow;
+				@include greentxtshw;
+				cursor: pointer;
+			}
+			.logbut:hover {
+				@include greenshadow;
+			}
+		}
+	}
+}
+
+.userDisplay {
+	text-transform: uppercase;
+	font-size: 30px;
+	width: 100%;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-between;
+}
+
+#logout {
+	text-align: center;
+	padding: 5px;
+	width: 100%;
+	background: transparent;
+	border: 1px solid $green-neon;
+	outline: none;
+	color: $green-neon;
+	font-family: $game;
+	font-size: 25px;
+	@include simplegreenshadow;
+	@include greentxtshw;
+	cursor: pointer;
+}
+
+#logout:hover {
+	@include greenshadow;
+}
+
+.wall,
+.games {
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
+	width: 100%; //	border: 1px solid white;
+	.fameTitle,
+	.playgame {
+		margin-top: 20px;
+		color: $green-neon;
+		font-size: 50px;
+		font-family: $game;
+	}
+	.fame,
+	.gameList {
+		margin: 25px; //		border: 1px dashed $green-neon;
+		width: 80%;
+		color: $green-neon;
+		font-size: 20px; //		@include greenshadow;
+		th {
+			text-transform: uppercase; //			background: rgba(0, 255, 255, 0.7);
+			font-family: $game;
+			color: $pink-neon;
+			font-weight: 100;
+			text-align: center; //			border: 1px dashed $green-neon;
+			//			@include simplegreenshadow;
+		}
+		th:first-of-type {
+			text-align: left;
+		}
+		.tcell:first-of-type {
+			font-family: $game;
+			text-transform: uppercase;
+			font-size: 18px;
+			font-weight: bold;
+			text-align: left;
+			padding: 5px;
+		}
+		.tcell {
+			font-family: $game;
+			font-size: 18px;
+			text-align: center; //			border: 1px dashed $green-neon;
+			//			@include simplegreenshadow;
+		}
+	}
+}
+
+.gameButton,
+#createGame {
+	text-align: center;
+	padding: 5px;
+	background: transparent;
+	outline: none;
+	color: $green-neon;
+	@include greentxtshw;
+	cursor: pointer;
+	border: 1px solid $green-neon;
+	min-width: 80px;
+}
+
+.blink {
+	animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+	50% {
+		opacity: 0;
+	}
+}
+
+// EACH GAME PAGE //
+header {
+	//	overflow: hidden;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-content: center;
+	align-items: center;
+	margin: -1px;
+	width: 100%;
+	border: 1px solid $green-neon;
+	height: 100px;
+	font-family: $game;
+	font-size: 50px;
+	color: $green-neon;
+	.players {
+		width: 100%;
+		display: flex;
+		flex-flow: row nowrap;
+		justify-content: center;
+		.p1,
+		.p2 {
+			font-size: 25px;
+		}
+		.vs {
+			font-size: 25px;
+			padding-left: 5px;
+			padding-right: 5px;
+		}
+	}
+}
+
+.fleet {
+	position: absolute;
+	background-color: $dark-green;
+	width: 50%;
+	height: 80%;
+	z-index: 15;
+	right: 0;
+	bottom: 0;
+	.shipsTitle {
+		font-family: $game;
+		font-size: 20px;
+		color: $green-neon;
+		text-align: center;
+	}
+	.shipsTable {
+		width: fit-content;
+		background-color: transparent;
+		border: 1px solid $green-neon;
+		border-radius: 10px;
+		margin: 10px auto;
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: center;
+		align-items: center;
+		.srow {
+			display: flex;
+			flex-flow: row nowrap;
+			align-content: flex-end;
+			.scell{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: $green-neon;
+			font-weight: bold;
+			font-family: monospace;
+			border: 1px dashed $green-neon;
+			width: 35px;
+			height: 35px;
+			@include simplegreenshadow;
+			text-shadow: 0 0 10px $green-neon;
+			cursor: move;}
+		}
+
+	}
+}
+
+.board {
+	margin-top: 90px;
+	display: flex;
+	flex-flow: row nowrap;
+	justify-content: space-around;
+	width: 100%;
+	.field {
+		display: flex;
+		flex-flow: column nowrap;
+		justify-content: center;
+		align-items: center;
+		align-content: center;
+		.fieldTitle {
+			font-family: $game;
+			font-size: 20px;
+			color: $green-neon;
+		}
+	}
+}
+
+.sea,
+.salvoSea {
+	width: fit-content;
+	background-color: transparent;
+	border: 1px solid $green-neon;
+	border-radius: 10px;
+	@include greenshadow;
+	margin: 50px auto;
+	display: flex;
+	flex-flow: column nowrap;
+	justify-content: center;
+	align-items: center;
+	.row {
+		//  border: 1px solid black;
+		display: flex;
+		flex-flow: row nowrap;
+		align-content: flex-end;
+		.cell,.tcell {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			color: $green-neon;
+			font-weight: bold;
+			font-family: monospace;
+			border: 1px dashed $green-neon;
+			width: 35px;
+			height: 35px;
+			@include simplegreenshadow;
+			text-shadow: 0 0 10px $green-neon;
+			cursor: crosshair;
+
+		}
+	}
+}
+
+.ship {
+	background-image: url(icons/paper-ship.png);
+	background-size: 25px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.bomb {
+	background-image: url(icons/redship.png);
+	background-size: 25px;
+	background-repeat: no-repeat;
+	background-position: center;
+}
+
+.aqua {
+	background-color: $green-neon;
+}
+
+.aqua:before {
+	background-color: $green-neon;
+}
+
+.salvoSea {
+	overflow: hidden;
+}
+
+.salvoSea tr:hover {
+	background-color: rgba(0, 255, 255, 0.4);
+}
+
+.salvoSea td:hover {
+	background-color: $green-neon;
+
+}
+
+.salvoSea td,
+.salvoSea th {
+	position: relative;
+}
+
+.salvoSea td:hover::after,
+.salvoSea th:hover::after {
+	content: "";
+	position: absolute;
+	background-color: rgba(0, 255, 255, 0.4);
+	left: 0;
+	top: -5000px;
+	height: 10000px;
+	width: 100%;
+	z-index: -5;
+}
