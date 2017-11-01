@@ -2,31 +2,107 @@
 <html lang="en">
 
 <head>
-  <title>Player Manager</title>
+	<meta charset="UTF-8">
 
-  <link rel="stylesheet" href="styles/style.css" type="text/css">
+	<meta name="description" content="The last and definitive BattleShip Game!">
+
+	<meta name="keywords" content="Game, Battleship, Battle, Ship, Ships, fleet, army, bombs, sea, water, salvo">
+
+	<meta name="author" content="Joan Domenech">
+
+	<meta name="copyright" content="Joan Domenech">
+
+	<!-- Robot Searchers -->
+
+	<meta name="robots" content="index, follow">
+
+	<!--Title -->
+
+	<title>Salvo!</title>
+
+	<meta name="apple-mobile-web-app-title" content="The BattleShip Game!">
+
+	<!-- Icons -->
+
+	<link rel="icon" href="styles/icons/bombs.png" type="image/x-icon">
+
+	<!-- Bootstrap -->
+
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+	<!--   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">-->
+
+	<!-- Own Style -->
+
+	<link rel="stylesheet" href="styles/style.css" type="text/css">
+
+	<!-- Fonts -->
+
+	<link href="https://fonts.googleapis.com/css?family=VT323" rel="stylesheet">
 
 </head>
 
 <body>
 
-<h2>Joan Domenech</h2>
+	<img class="spaceship" hidden="hidden" src="styles/images/space-ship.png">
 
-  <h1>Player Manager</h1>
+	<img class="pinkspaceship" hidden="hidden" src="styles/images/space-ship.png">
 
-  <form action="" onsubmit="return false">
-    <label>Email User Name [e.g., alice@aol.com]: <input id="email" type="text" size="30"></label>
-    <button id="add_player">Add</button>
-    <br>
-    <pre id="output"></pre>
-  </form>
+	<header>
+		
+		<embed name="GoodEnough" src="styles/sounds/bensound-epic.mp3" loop="true" hidden="true" autostart="true">
+
+		<p class="welcome" hidden="hidden">Welcome to Space Battleship War!</p>
+
+		<div class="userDisplay">
+
+			<div class="userInfo" hidden="hidden">
+				<p><span class="user-name"></span>, MAY THE FORCE BE WITH YOU!</p>
+				
+			</div>
+
+			<form id="logout-form" onsubmit="return false">
+				<button id="logout" hidden="hidden">Log out</button>
+			</form>
+
+		</div>
+	</header>
+
+	<div class="log" hidden="hidden">
+
+		<form id="login-form" onsubmit="return false">
+			<label>Username: <input id="user" type="text" name="username"></label>
+			<label>Password: <input id="pwd" type="password" name="password"></label>
+			<div class="button-collection">
+				<button class="logbut" id="login">Login</button>
+				<button class="logbut" id="signin">Signup</button>
+			</div>
+		</form>
+
+	</div>
 
 
-  <script src="https://code.jquery.com/jquery-3.2.1.js"
-          integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
-          crossorigin="anonymous"></script>
+	<div class="wall" hidden="hidden">
 
-  <script src="js/main.js"></script>
+		<p class="fameTitle" hidden="hidden">HALL OF FAME</p>
+
+		<table class="fame"></table>
+
+	</div>
+
+
+	<div class=games hidden="hidden">
+		
+		<p class="playgame" hidden="hidden">PLAY GAME</p>
+		
+		<button id="createGame" hidden="hidden">Create New Game</button>
+
+		<table class="gameList"></table>
+
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.js" integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE=" crossorigin="anonymous"></script>
+	<script src="js/games.js"></script>
 
 </body>
 
