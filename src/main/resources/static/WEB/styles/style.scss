@@ -402,7 +402,7 @@ header {
 		display: flex;
 		flex-flow: row nowrap;
 		align-content: flex-end;
-		.cell {
+		.cell,.tcell {
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -435,6 +435,10 @@ header {
 }
 
 .aqua {
+	background-color: $green-neon;
+}
+
+.aqua:before {
 	background-color: $green-neon;
 }
 

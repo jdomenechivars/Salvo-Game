@@ -363,8 +363,9 @@ header {
     flex-flow: row nowrap;
     align-content: flex-end; }
     /* line 405, src/main/resources/static/web/styles/style.scss */
-    .sea .row .cell,
-    .salvoSea .row .cell {
+    .sea .row .cell, .sea .row .tcell,
+    .salvoSea .row .cell,
+    .salvoSea .row .tcell {
       display: flex;
       justify-content: center;
       align-items: center;
@@ -397,23 +398,27 @@ header {
   background-color: #00ffff; }
 
 /* line 441, src/main/resources/static/web/styles/style.scss */
+.aqua:before {
+  background-color: #00ffff; }
+
+/* line 445, src/main/resources/static/web/styles/style.scss */
 .salvoSea {
   overflow: hidden; }
 
-/* line 445, src/main/resources/static/web/styles/style.scss */
+/* line 449, src/main/resources/static/web/styles/style.scss */
 .salvoSea tr:hover {
   background-color: rgba(0, 255, 255, 0.4); }
 
-/* line 449, src/main/resources/static/web/styles/style.scss */
+/* line 453, src/main/resources/static/web/styles/style.scss */
 .salvoSea td:hover {
   background-color: #00ffff; }
 
-/* line 454, src/main/resources/static/web/styles/style.scss */
+/* line 458, src/main/resources/static/web/styles/style.scss */
 .salvoSea td,
 .salvoSea th {
   position: relative; }
 
-/* line 459, src/main/resources/static/web/styles/style.scss */
+/* line 463, src/main/resources/static/web/styles/style.scss */
 .salvoSea td:hover::after,
 .salvoSea th:hover::after {
   content: "";

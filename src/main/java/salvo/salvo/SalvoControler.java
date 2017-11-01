@@ -31,7 +31,8 @@ public class SalvoControler {
     @Autowired
     private PlayerRepository playerRepo;
 
-    @Autowired ShipRepository shipRepo;
+    @Autowired
+    private ShipRepository shipRepo;
 
     // MAIN PAGE JSON //
 

@@ -109,6 +109,8 @@ function createGrid(grid) {
 
 	}
 
+
+
 }
 
 function createCell(row, content, grid) {
@@ -131,18 +133,19 @@ function createCell(row, content, grid) {
 
 		}
 
-		cell.setAttribute("class", "cell");
-
+		//		cell.setAttribute("class", "cell");
 
 		if (content == 0) {
 
 			if (j == 0) {
 
 				cell.innerHTML = "";
+				cell.setAttribute("class", "tcell");
 
 			} else {
 
 				cell.innerHTML = j;
+				cell.setAttribute("class", "tcell");
 
 			}
 
@@ -151,11 +154,13 @@ function createCell(row, content, grid) {
 			if (j == 0) {
 
 				cell.innerHTML = content;
+				cell.setAttribute("class", "tcell");
+
 
 			} else {
 
 				cell.innerHTML = "";
-
+				cell.setAttribute("class", "cell");
 				cell.setAttribute("title", cellName);
 
 			}
@@ -164,16 +169,34 @@ function createCell(row, content, grid) {
 		row.appendChild(cell);
 
 	}
+
+
+	$(".shipsTable").draggable({
+//		handle:".scell",
+		revert: "invalid",
+//		refreshPositions: true,
+		grid: [34, 34],
+		opacity: 9,
+		stack: ".sea",
+		cursorAt: { right: 35, top: 18},
+	});
+
+	$(".cell").droppable({
+		accept: ".shipsTable",
+		hoverClass: 'aqua',
+		drop: dragShip
+	});
+
 }
 
 function getShips(data) {
 
 	var ships = data.ships;
-	
+
 	console.log(ships);
-	
-	if(ships.length < 5){
-		
+
+	if (ships.length < 5) {
+
 		$(".fleet").show();
 	}
 
@@ -228,7 +251,7 @@ function getSalvoes(data) {
 			} else {
 
 				salvoesP2 = salvoes[k];
-				
+
 			}
 
 		}
@@ -288,41 +311,41 @@ function printEnemySavloes(salvoes) {
 
 }
 
-function buildShip(){
-	
+function buildShip() {
+
 	var type = "cruiser";
-	var locations =["A5","A6"];
-	
+	var locations = ["A5", "A6"];
+
 	var ship = new Object;
-	
+
 	ship["type"] = type;
 	ship["locations"] = locations;
-	
-	
+
+
 	createShips(ship);
 }
 
-function createShips(ship){
-	
+function createShips(ship) {
+
 	var ships = [];
-	
+
 	ships.push(ship);
-	
+
 	placeShips(ships);
-	
+
 }
 
 function placeShips(ships) {
-	
+
 	$.ajax({
-		method: "POST",
-		url: "/api/games/players/" + getParameterByName("gp") + "/ships",
-		contentType: "application/json",
-		data: JSON.stringify(ship)
-	}).done(
+			method: "POST",
+			url: "/api/games/players/" + getParameterByName("gp") + "/ships",
+			contentType: "application/json",
+			data: JSON.stringify(ship)
+		}).done(
 
 			function (response) {
-				
+
 				console.log(response);
 
 			})
@@ -333,5 +356,36 @@ function placeShips(ships) {
 		});
 
 	$(".fleet").hide();
+
+}
+
+function dragShip(event, ui) {
+	//	ui.draggable.draggable('disable');
+	//	$(this).droppable('disable');
+	ui.draggable.position({ 
+		of: $(this),
+		my: 'right top',
+		at: 'right top'
+	});
+	ui.draggable.draggable('option', 'revert', 'invalid');
+	ui.draggable.draggable("option", "grid", [34, 34]);
+
+//	cal	cCells($(this), ui);
+}
+
+function calcCells(cell, ui) {
+	var size = Number(ui.draggable.attr('data-size'));
+	var lett = cell.attr('id').substring(0, 1);
+	var num = Number(cell.attr('id').substring(1, 3));
+
+	var text = "";;
+
+	for (var i = 0; i < size; i++) {
+		var customId = (lett + (num + i));
+		text += (customId + '\n');
+	}
+
+	alert(text);
+
 
 }
