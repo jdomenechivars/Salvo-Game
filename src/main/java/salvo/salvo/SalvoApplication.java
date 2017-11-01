@@ -316,7 +316,7 @@ class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         //Authority Roles PATHS: //
         http.authorizeRequests()
 
-                .antMatchers("/web/games.html").permitAll()
+                .antMatchers("/web/index.html").permitAll()
                 .antMatchers("/web/styles/*").permitAll()
                 .antMatchers("/web/styles/icons/*").permitAll()
                 .antMatchers("/web/styles/partials/*").permitAll()
