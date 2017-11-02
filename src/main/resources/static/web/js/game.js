@@ -46,33 +46,40 @@ $(document).ready(function () {
 
 				function () {
 
-					this.addEventListener("click", console.log("funciona"));
-
 					var location = this.getAttribute("id");
 
 					hoverShip(size, location);
 
-
-				}
-
-
-			);
+				});
 		}
-
 	});
 
+	$(document).on("click", ".cell", function () {
 
+		var location = this.getAttribute("id");
+		var size = "";
+		var type = "";
+
+		$(".shipsTable").each(function (i, ele) {
+
+			if ($(ele).hasClass("blink")) {
+
+				size = ele.getAttribute("data-size");
+
+				type = ele.getAttribute("data-type");
+
+				$(ele).removeClass("blink");
+				$(ele).prev(".shipsTitle").hide();
+				$(ele).hide();
+				$(".cell").unbind('mouseenter mouseleave')
+
+
+			};
+		});
+
+		setShip(size, location, type);
+	});
 })
-
-function areBlinking() {
-	var blinking = false;
-	$(".shipsTable").each(function (i, ele) {
-		if ($(ele).hasClass("blink")) {
-			blinking = true;
-		}
-	})
-	return blinking;
-}
 
 function hoverShip(size, location) {
 
@@ -96,18 +103,46 @@ function hoverShip(size, location) {
 		if (totalPosition > 11 || hoverCells.hasClass("ship")) {
 
 			hoverCells.toggleClass("red-ship");
+			hoverCells.click(false);
 
 		} else {
 
 			hoverCells.toggleClass("black-ship");
 
 		}
+	}
+}
 
+function setShip(size, location, type) {
+
+	var letter = location.charAt(0);
+
+	var number = parseFloat(location.substr(1));
+
+	var totalPosition = (parseFloat(size) + parseFloat(number));
+
+	console.log(totalPosition);
+
+	for (var i = 0; i < size; i++) {
+
+		var newPosition = number + i;
+		var newLocations = letter + newPosition;
+
+		var hoverCells = $("#" + newLocations);
+
+
+		if (totalPosition < 11 || hoverCells.not(".ship")) {
+
+			hoverCells.addClass("ship");
+			hoverCells.removeClass("black-ship");
+			hoverCells.removeClass("red-ship");
+
+		}
 
 	}
 
-
 }
+
 
 function getParameterByName(name, url) {
 	if (!url) url = window.location.href;
