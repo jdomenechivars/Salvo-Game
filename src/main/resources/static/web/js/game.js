@@ -21,7 +21,93 @@ $(document).ready(function () {
 		location.href = "games.html";
 	});
 
+	$(document).on("click", ".shipsTable", function () {
+
+
+		if ($(this).hasClass("blink")) {
+
+			$(this).removeClass("blink");
+
+			$(".cell").unbind('mouseenter mouseleave')
+
+
+		} else {
+
+			$(".shipsTable").removeClass("blink");
+			$(".cell").unbind('mouseenter mouseleave');
+
+			$(this).addClass("blink");
+
+			var size = this.getAttribute("data-size");
+
+			var type = this.getAttribute("data-type");
+
+			$(".cell").hover(
+
+				function () {
+
+					this.addEventListener("click", console.log("funciona"));
+
+					var location = this.getAttribute("id");
+
+					hoverShip(size, location);
+
+
+				}
+
+
+			);
+		}
+
+	});
+
+
 })
+
+function areBlinking() {
+	var blinking = false;
+	$(".shipsTable").each(function (i, ele) {
+		if ($(ele).hasClass("blink")) {
+			blinking = true;
+		}
+	})
+	return blinking;
+}
+
+function hoverShip(size, location) {
+
+	var letter = location.charAt(0);
+
+	var number = parseFloat(location.substr(1));
+
+	var totalPosition = (parseFloat(size) + parseFloat(number));
+
+	console.log(totalPosition);
+
+	for (var i = 0; i < size; i++) {
+
+
+		var newPosition = number + i;
+		var newLocations = letter + newPosition;
+
+		var hoverCells = $("#" + newLocations);
+
+
+		if (totalPosition > 11 || hoverCells.hasClass("ship")) {
+
+			hoverCells.toggleClass("red-ship");
+
+		} else {
+
+			hoverCells.toggleClass("black-ship");
+
+		}
+
+
+	}
+
+
+}
 
 function getParameterByName(name, url) {
 	if (!url) url = window.location.href;
@@ -169,23 +255,6 @@ function createCell(row, content, grid) {
 		row.appendChild(cell);
 
 	}
-
-
-	$(".shipsTable").draggable({
-//		handle:".scell",
-		revert: "invalid",
-//		refreshPositions: true,
-		grid: [34, 34],
-		opacity: 9,
-		stack: ".sea",
-		cursorAt: { right: 35, top: 18},
-	});
-
-	$(".cell").droppable({
-		accept: ".shipsTable",
-		hoverClass: 'aqua',
-		drop: dragShip
-	});
 
 }
 
@@ -356,36 +425,5 @@ function placeShips(ships) {
 		});
 
 	$(".fleet").hide();
-
-}
-
-function dragShip(event, ui) {
-	//	ui.draggable.draggable('disable');
-	//	$(this).droppable('disable');
-	ui.draggable.position({ 
-		of: $(this),
-		my: 'right top',
-		at: 'right top'
-	});
-	ui.draggable.draggable('option', 'revert', 'invalid');
-	ui.draggable.draggable("option", "grid", [34, 34]);
-
-//	cal	cCells($(this), ui);
-}
-
-function calcCells(cell, ui) {
-	var size = Number(ui.draggable.attr('data-size'));
-	var lett = cell.attr('id').substring(0, 1);
-	var num = Number(cell.attr('id').substring(1, 3));
-
-	var text = "";;
-
-	for (var i = 0; i < size; i++) {
-		var customId = (lett + (num + i));
-		text += (customId + '\n');
-	}
-
-	alert(text);
-
 
 }

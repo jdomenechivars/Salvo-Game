@@ -347,19 +347,20 @@ header {
 			display: flex;
 			flex-flow: row nowrap;
 			align-content: flex-end;
-			.scell{
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			color: $green-neon;
-			font-weight: bold;
-			font-family: monospace;
-			border: 1px dashed $green-neon;
-			width: 35px;
-			height: 35px;
-			@include simplegreenshadow;
-			text-shadow: 0 0 10px $green-neon;
-			cursor: move;}
+			.scell {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				color: $green-neon;
+				font-weight: bold;
+				font-family: monospace;
+				border: 1px dashed $green-neon;
+				width: 35px;
+				height: 35px;
+				@include simplegreenshadow;
+				text-shadow: 0 0 10px $green-neon;
+				cursor: pointer;
+			}
 		}
 
 	}
@@ -402,7 +403,8 @@ header {
 		display: flex;
 		flex-flow: row nowrap;
 		align-content: flex-end;
-		.cell,.tcell {
+		.cell,
+		.tcell {
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -414,8 +416,7 @@ header {
 			height: 35px;
 			@include simplegreenshadow;
 			text-shadow: 0 0 10px $green-neon;
-			cursor: crosshair;
-
+			//			cursor: url('icons/black-ship.png'), auto;
 		}
 	}
 }
@@ -425,6 +426,26 @@ header {
 	background-size: 25px;
 	background-repeat: no-repeat;
 	background-position: center;
+}
+
+.black-ship {
+	background-image: url(icons/black-ship.png);
+	background-color: $green-neon;
+	background-size: 25px;
+	background-repeat: no-repeat;
+	background-position: center;
+	cursor: pointer;
+}
+
+.red-ship {
+	
+	background-image: url(icons/black-ship.png);
+	background-color: $pink-neon;
+	background-size: 25px;
+	background-repeat: no-repeat;
+	background-position: center;
+	cursor: pointer;
+
 }
 
 .bomb {
