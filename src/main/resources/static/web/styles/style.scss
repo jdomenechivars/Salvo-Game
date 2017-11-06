@@ -386,6 +386,18 @@ header {
 	}
 }
 
+.turn{
+	max-width: 100px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.arrowTurn{
+	width: 100px;
+	height: 100px;
+}
+
 .sea,
 .salvoSea {
 	width: fit-content;
@@ -404,7 +416,7 @@ header {
 		flex-flow: row nowrap;
 		align-content: flex-end;
 		.cell,
-		.tcell {
+		.tcell,.scell	 {
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -461,6 +473,10 @@ header {
 
 .aqua:before {
 	background-color: $green-neon;
+}
+
+.fire{
+	background-color: $pink-neon;
 }
 
 .salvoSea {

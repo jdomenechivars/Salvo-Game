@@ -18,9 +18,10 @@ $(document).ready(function () {
 
 	}).fail(function () {
 		alert("UNAUTHORIZED USER!");
-		location.href = "games.html";
+		location.href = "index.html";
 	});
 
+	//The eventListener below run the hover when you select a ship from the ships fleet board:
 	$(document).on("click", ".shipsTable", function () {
 
 
@@ -38,111 +39,63 @@ $(document).ready(function () {
 
 			$(this).addClass("blink");
 
-			var size = this.getAttribute("data-size");
-
-			var type = this.getAttribute("data-type");
+			var shipSize = this.getAttribute("data-size");
 
 			$(".cell").hover(
 
 				function () {
 
-					var location = this.getAttribute("id");
+					var mouseLocation = this.getAttribute("id");
 
-					hoverShip(size, location);
+					hoverShip(shipSize, mouseLocation);
 
 				});
 		}
 	});
 
+	//Next eventListener set the Ships when click on a cell
 	$(document).on("click", ".cell", function () {
 
-		var location = this.getAttribute("id");
-		var size = "";
-		var type = "";
+		var mouseLocation = this.getAttribute("id");
+		var shipSize = "";
+		var shipType = "";
 
 		$(".shipsTable").each(function (i, ele) {
 
 			if ($(ele).hasClass("blink")) {
 
-				size = ele.getAttribute("data-size");
-
-				type = ele.getAttribute("data-type");
+				shipSize = ele.getAttribute("data-size");
+				shipType = ele.getAttribute("data-type");
 
 				$(ele).removeClass("blink");
 				$(ele).prev(".shipsTitle").hide();
 				$(ele).hide();
-				$(".cell").unbind('mouseenter mouseleave')
-
+				$(".cell").unbind('mouseenter mouseleave');
+				setShip(shipSize, mouseLocation, shipType);
 
 			};
 		});
 
-		setShip(size, location, type);
 	});
-})
 
-function hoverShip(size, location) {
+	//Next eventListener set firing Salvos
+	$(document).on("click", ".scell", function () {
 
-	var letter = location.charAt(0);
+		if (this.classList.contains("aqua")) {
 
-	var number = parseFloat(location.substr(1));
-
-	var totalPosition = (parseFloat(size) + parseFloat(number));
-
-	console.log(totalPosition);
-
-	for (var i = 0; i < size; i++) {
-
-
-		var newPosition = number + i;
-		var newLocations = letter + newPosition;
-
-		var hoverCells = $("#" + newLocations);
-
-
-		if (totalPosition > 11 || hoverCells.hasClass("ship")) {
-
-			hoverCells.toggleClass("red-ship");
-			hoverCells.click(false);
+			alert("Fired yet!");
 
 		} else {
 
-			hoverCells.toggleClass("black-ship");
-
-		}
-	}
-}
-
-function setShip(size, location, type) {
-
-	var letter = location.charAt(0);
-
-	var number = parseFloat(location.substr(1));
-
-	var totalPosition = (parseFloat(size) + parseFloat(number));
-
-	console.log(totalPosition);
-
-	for (var i = 0; i < size; i++) {
-
-		var newPosition = number + i;
-		var newLocations = letter + newPosition;
-
-		var hoverCells = $("#" + newLocations);
+			var mouseLocation = this.getAttribute("id");
 
 
-		if (totalPosition < 11 || hoverCells.not(".ship")) {
-
-			hoverCells.addClass("ship");
-			hoverCells.removeClass("black-ship");
-			hoverCells.removeClass("red-ship");
+			buildSalvo(mouseLocation);
 
 		}
 
-	}
-
-}
-
+	});
+})
 
 function getParameterByName(name, url) {
 	if (!url) url = window.location.href;
@@ -281,8 +234,16 @@ function createCell(row, content, grid) {
 			} else {
 
 				cell.innerHTML = "";
-				cell.setAttribute("class", "cell");
 				cell.setAttribute("title", cellName);
+
+				if (grid[0].className == "salvoSea") {
+
+					cell.setAttribute("class", "scell");
+
+				} else {
+					cell.setAttribute("class", "cell");
+
+				}
 
 			}
 		}
@@ -415,27 +376,90 @@ function printEnemySavloes(salvoes) {
 
 }
 
-function buildShip() {
+function hoverShip(shipSize, mouseLocation) {
 
-	var type = "cruiser";
-	var locations = ["A5", "A6"];
+	var letter = mouseLocation.charAt(0);
+	var number = parseFloat(mouseLocation.substr(1));
+
+	var totalPosition = (parseFloat(shipSize) + parseFloat(number));
+
+	for (var i = 0; i < shipSize; i++) {
+
+		var increaseCellNumber = number + i;
+		var nextCells = letter + increaseCellNumber;
+
+		var hoverCells = $("#" + nextCells);
+
+		if (totalPosition > 11 || hoverCells.hasClass("ship")) {
+
+			hoverCells.toggleClass("red-ship");
+			hoverCells.click(false);
+
+		} else {
+
+			hoverCells.toggleClass("black-ship");
+
+		}
+	}
+}
+
+function setShip(shipSize, mouseLocation, shipType) {
+
+	var shipLocation = [];
+
+	var letter = mouseLocation.charAt(0);
+	var number = parseFloat(mouseLocation.substr(1));
+
+	var totalPosition = (parseFloat(shipSize) + parseFloat(number));
+
+	for (var i = 0; i < shipSize; i++) {
+
+		var increaseCellNumber = number + i;
+		var nextCells = letter + increaseCellNumber;
+
+		var selectedCells = $("#" + nextCells);
+
+		if (totalPosition < 11 || selectedCells.not(".ship")) {
+
+			selectedCells.addClass("ship");
+			selectedCells.removeClass("black-ship");
+			selectedCells.removeClass("red-ship");
+			shipLocation.push(nextCells);
+
+		}
+
+	}
+
+	if (shipLocation.length > 0) {
+		buildShip(shipType, shipLocation);
+	}
+}
+
+function buildShip(type, locations) {
 
 	var ship = new Object;
 
 	ship["type"] = type;
 	ship["locations"] = locations;
 
-
-	createShips(ship);
+	createShipsFleet(ship);
 }
 
-function createShips(ship) {
+function createShipsFleet(ship) {
 
-	var ships = [];
+	if (createShipsFleet.ships == undefined) {
+		createShipsFleet.ships = [];
+	}
 
-	ships.push(ship);
+	createShipsFleet.ships.push(ship);
 
-	placeShips(ships);
+	console.log(createShipsFleet.ships);
+
+	if (createShipsFleet.ships.length == 5) {
+
+		$(".fleet").hide();
+		placeShips(createShipsFleet.ships);
+	}
 
 }
 
@@ -445,7 +469,7 @@ function placeShips(ships) {
 			method: "POST",
 			url: "/api/games/players/" + getParameterByName("gp") + "/ships",
 			contentType: "application/json",
-			data: JSON.stringify(ship)
+			data: JSON.stringify(ships)
 		}).done(
 
 			function (response) {
@@ -459,6 +483,37 @@ function placeShips(ships) {
 
 		});
 
-	$(".fleet").hide();
 
+}
+
+function buildSalvo(mouseLocation) {
+
+	console.log(mouseLocation);
+
+	if (buildSalvo.salvos == undefined) {
+		buildSalvo.salvos = [];
+	}
+
+	var salvo = "#" + mouseLocation;
+	$(salvo).addClass("fire");
+
+
+	if (buildSalvo.salvos.length == 4) {
+		$(".scell").click(false);
+		removeFires();
+	} else {
+
+		buildSalvo.salvos.push(salvo);
+		console.log(buildSalvo.salvos);
+	}
+}
+
+function removeFires(){
+	
+	$(document).on("click",".fire",function(){
+		
+		console.log(this.getAttribute("id"));
+		
+	});
+	
 }
